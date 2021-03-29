@@ -6,6 +6,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Cohort Participants
 
+Juan Pablo Rodríguez Guevara
+
 ## Mentors
 
 ## Code of Conduct Contacts
