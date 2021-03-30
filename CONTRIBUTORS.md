@@ -2,12 +2,13 @@
 
 Add yourself as a contributor to this project as a Markdown link that links your name to your GitHub profile and shows your favorite emoji, as in the following example:
 
-    - [Dione Developer](https://github.com/DioneDeveloper) 💅
 
 ## Cohort Participants
 
+- [Dione Developer](https://github.com/DioneDeveloper) 💅
+
 ## Mentors
 
-    - [Mike Lambert](https://github.com/mikeblambert) 🤪
+- [Mike Lambert](https://github.com/mikeblambert) 🤪
 
 ## Code of Conduct Contacts
