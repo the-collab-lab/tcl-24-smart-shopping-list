@@ -10,5 +10,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Mentors
 
 - [Mike Lambert](https://github.com/mikeblambert) 🤪
+- [Liz Bañol Orozco]
 
 ## Code of Conduct Contacts
