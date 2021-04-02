@@ -8,6 +8,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Ana Mafla](https://github.com/anamafla) 😊
 - [Camila Parada Valderrama](https://github.com/candrepa1) ✨
 - [Juan Pablo Rodríguez](https://github.com/dupjpr) 😱
+- [Karen Rodriguez](https://github.com/kleyla) ❤️
 
 ## Mentors
 
