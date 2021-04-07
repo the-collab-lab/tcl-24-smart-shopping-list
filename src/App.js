@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import AddItem from './components/AddItem';
-import List from './components/List';
+import AddItem from './components/AddItem/AddItem.js';
+import List from './components/List/List.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/NavBar/NavBar.js';
 
 function App() {
   return (
