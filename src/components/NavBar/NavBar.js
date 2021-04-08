@@ -3,12 +3,12 @@ import './navBarStyle.css';
 
 const NavBar = () => {
   return (
-    <nav>
-      <NavLink exact to="/list">
+    <nav className="nav-container">
+      <NavLink className="nav-link" exact to="/list">
         {' '}
         List
       </NavLink>
-      <NavLink exact to="/addItem">
+      <NavLink className="nav-link" exact to="/addItem">
         {' '}
         Add Item
       </NavLink>

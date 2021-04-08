@@ -9,7 +9,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar />
         <Switch>
           <Route path="/list">
             <List />
@@ -18,6 +17,7 @@ function App() {
             <AddItem />
           </Route>
         </Switch>
+        <NavBar />
       </div>
     </Router>
   );
