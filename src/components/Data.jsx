@@ -4,8 +4,7 @@ import { Form } from './Form';
 import { DataContext } from '../contexts/DataContext';
 
 const Data = () => {
-  const context = useContext(DataContext);
-  const { getAll } = context;
+  const { getAll } = useContext(DataContext);
   const [value, loading, error] = useCollection(getAll());
 
   return (

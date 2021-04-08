@@ -2,12 +2,10 @@ import React, { useContext, useState } from 'react';
 import { DataContext } from '../contexts/DataContext';
 
 export const Form = () => {
-  const context = useContext(DataContext);
-  const { create } = context;
+  const { create } = useContext(DataContext);
   const [thing, setThing] = useState('');
   const sendToFB = (e) => {
     e.preventDefault();
-    console.log(thing);
     create({ name: thing });
     e.target.reset();
   };

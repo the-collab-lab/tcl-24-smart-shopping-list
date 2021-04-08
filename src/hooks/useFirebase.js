@@ -3,9 +3,7 @@ import { fb } from './../lib/firebase';
 export const useFirebase = (collection) => {
   const db = fb.firestore().collection(collection);
 
-  const getAll = () => {
-    return db;
-  };
+  const getAll = () => db;
 
   const getById = (id) => {
     return db.doc(id).get();
