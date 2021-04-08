@@ -1,15 +1,12 @@
-import React from 'react';
-import { fb } from '../lib/firebase';
+import React, { useContext } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Form } from './Form';
+import { DataContext } from '../contexts/DataContext';
 
 const Data = () => {
-  const [value, loading, error] = useCollection(
-    fb.firestore().collection('things'),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    },
-  );
+  const context = useContext(DataContext);
+  const { getAll } = context;
+  const [value, loading, error] = useCollection(getAll());
 
   return (
     <div>
@@ -19,7 +16,9 @@ const Data = () => {
       {value && (
         <ul>
           {value.docs.map((doc) => (
-            <li key={doc.id}>{doc.data().name}</li>
+            <li key={doc.id}>
+              {doc.id} {doc.data().name}
+            </li>
           ))}
         </ul>
       )}
