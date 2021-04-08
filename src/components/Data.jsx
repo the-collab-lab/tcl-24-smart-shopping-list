@@ -15,9 +15,7 @@ const Data = () => {
       {value && (
         <ul>
           {value.docs.map((doc) => (
-            <li key={doc.id}>
-              {doc.id} {doc.data().name}
-            </li>
+            <li key={doc.id}>{doc.data().name}</li>
           ))}
         </ul>
       )}
