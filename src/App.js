@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import Data from './components/Data';
+import DataContextProvider from './contexts/DataContext';
 
 function App() {
   return (
-    <div className="App">
+    <DataContextProvider>
       <Data />
-    </div>
+    </DataContextProvider>
   );
 }
 

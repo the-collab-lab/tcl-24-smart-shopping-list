@@ -1,20 +1,11 @@
-import React from 'react';
-import { fb } from '../lib/firebase';
+import React, { useContext } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Form } from './Form';
+import { DataContext } from '../contexts/DataContext';
 
 const Data = () => {
-  // const [data, setData] = useState('');
-  const [value, loading, error] = useCollection(
-    fb.firestore().collection('things'),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    },
-  );
-
-  // useEffect(() => {
-  //   console.log(value);
-  // }, [value]);
+  const { getAll } = useContext(DataContext);
+  const [value, loading, error] = useCollection(getAll());
 
   return (
     <div>
