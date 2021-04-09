@@ -4,12 +4,17 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { Form } from './Form';
 
 const Data = () => {
+  // const [data, setData] = useState('');
   const [value, loading, error] = useCollection(
     fb.firestore().collection('things'),
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     },
   );
+
+  // useEffect(() => {
+  //   console.log(value);
+  // }, [value]);
 
   return (
     <div>
