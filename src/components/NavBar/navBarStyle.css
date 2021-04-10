@@ -1,0 +1,15 @@
+.nav-container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+}
+
+a.nav-link.active {
+  font-weight: bold;
+}
+
+a.nav-link {
+  margin-left: 2%;
+  text-decoration: none;
+}
