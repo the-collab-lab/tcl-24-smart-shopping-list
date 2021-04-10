@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Form } from './Form';
-import { DataContext } from '../contexts/DataContext';
+import { useFirebase } from '../hooks/useFirebase';
 
 const Data = () => {
-  const { getAll } = useContext(DataContext);
+  const { getAll } = useFirebase('things');
   const [value, loading, error] = useCollection(getAll());
 
   return (

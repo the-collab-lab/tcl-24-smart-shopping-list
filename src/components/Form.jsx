@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
-import { DataContext } from '../contexts/DataContext';
+import React, { useState } from 'react';
+import { useFirebase } from '../hooks/useFirebase';
 
 export const Form = () => {
-  const { create } = useContext(DataContext);
+  const { create } = useFirebase('things');
   const [thing, setThing] = useState('');
   const sendToFB = (e) => {
     e.preventDefault();
