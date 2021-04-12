@@ -5,6 +5,7 @@ import './App.css';
 import AddItem from './components/AddItem/AddItem.jsx';
 import List from './components/List/List.jsx';
 import NavBar from './components/NavBar/NavBar.jsx';
+import Home from './components/Home/Home';
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
           </Route>
           <Route path="/addItem">
             <AddItem />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
         <NavBar />
