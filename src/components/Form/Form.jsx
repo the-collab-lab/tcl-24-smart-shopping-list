@@ -4,6 +4,8 @@ import { useForm } from '../../hooks/useForm';
 
 export const Form = () => {
   const { create } = useFirebase('things');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(null);
 
   const [values, handleInputChange, setValues] = useForm({
     nameItem: '',
@@ -30,9 +32,16 @@ export const Form = () => {
         selectTime: '',
         lastDate: null,
       });
-
+      setSuccess('Data was send success');
+      setTimeout(() => {
+        setSuccess(null);
+      }, 2000);
       return;
     }
+    setError('Fill in all the blanks');
+    setTimeout(() => {
+      setError(null);
+    }, 2000);
   };
 
   return (
@@ -78,6 +87,8 @@ export const Form = () => {
 
         <div>Last purchased date{values.lastDate}</div>
         <button type="submit">Send</button>
+        {error && <div className="form-error-msn">{error}</div>}
+        {success && <div className="form-success-msn">{success}</div>}
       </form>
     </div>
   );
