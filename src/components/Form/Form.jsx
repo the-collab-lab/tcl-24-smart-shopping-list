@@ -8,6 +8,7 @@ export const Form = () => {
   const [values, handleInputChange, setValues] = useForm({
     nameItem: '',
     selectTime: '',
+    lastDate: null,
   });
 
   const sendToFB = (e) => {
@@ -16,13 +17,18 @@ export const Form = () => {
     const selectLength = values.selectTime.length;
 
     if (itemLength && selectLength) {
-      create({ name: values.nameItem, time: values.selectTime });
+      create({
+        name: values.nameItem,
+        time: values.selectTime,
+        lastDate: null,
+      });
 
       e.target.reset();
 
       setValues({
         nameItem: '',
         selectTime: '',
+        lastDate: null,
       });
 
       return;
@@ -31,43 +37,46 @@ export const Form = () => {
 
   return (
     <div>
-      <form onSubmit={sendToFB}>
+      <form onSubmit={sendToFB} className="form-item">
         <label htmlFor="fname">
           Name of item:
           <input type="text" name="nameItem" onChange={handleInputChange} />
         </label>
         <br />
-        <label>
-          How soon are you likely to buy it again?
-          <label>
-            <input
-              type="radio"
-              name="selectTime"
-              onChange={handleInputChange}
-              value="7"
-            />
-            Soon (in the next 7 days)
+        <div>
+          <label className="form-radio-set">
+            How soon are you likely to buy it again?
+            <label>
+              <input
+                type="radio"
+                name="selectTime"
+                onChange={handleInputChange}
+                value="7"
+              />
+              Soon (in the next 7 days)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="selectTime"
+                onChange={handleInputChange}
+                value="14"
+              />
+              Kind of soon (in the next 14 days)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="selectTime"
+                onChange={handleInputChange}
+                value="30"
+              />
+              Not soon (in the next 30 days)
+            </label>
           </label>
-          <label>
-            <input
-              type="radio"
-              name="selectTime"
-              onChange={handleInputChange}
-              value="14"
-            />
-            Kind of soon (in the next 14 days)
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="selectTime"
-              onChange={handleInputChange}
-              value="30"
-            />
-            Not soon (in the next 30 days)
-          </label>
-        </label>
-        <div>Last purchased date</div>
+        </div>
+
+        <div>Last purchased date{values.lastDate}</div>
         <button type="submit">Send</button>
       </form>
     </div>
