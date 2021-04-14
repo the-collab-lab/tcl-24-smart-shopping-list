@@ -6,15 +6,17 @@ import AddItem from './components/AddItem/AddItem.jsx';
 import List from './components/List/List.jsx';
 import NavBar from './components/NavBar/NavBar.jsx';
 import Home from './components/Home/Home';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/list">
+          <ProtectedRoute path="/list">
             <List />
-          </Route>
+          </ProtectedRoute>
+
           <Route path="/addItem">
             <AddItem />
           </Route>

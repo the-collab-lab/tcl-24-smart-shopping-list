@@ -4,7 +4,10 @@ import { Form } from '../Form/Form';
 import { useFirebase } from '../../hooks/useFirebase';
 
 const List = () => {
-  const { getAll } = useFirebase('things');
+  const token = localStorage.getItem('token');
+
+  const { getAll } = useFirebase(token);
+
   const [value, loading, error] = useCollection(getAll());
 
   return (

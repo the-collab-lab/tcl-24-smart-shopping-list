@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useFirebase } from '../../hooks/useFirebase';
 
 export const Form = () => {
-  const { create } = useFirebase('things');
+  const token = localStorage.getItem('token');
+
+  const { create } = useFirebase(token);
+
   const [thing, setThing] = useState('');
   const sendToFB = (e) => {
     e.preventDefault();
