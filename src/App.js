@@ -16,10 +16,9 @@ function App() {
           <ProtectedRoute path="/list">
             <List />
           </ProtectedRoute>
-
-          <Route path="/addItem">
+          <ProtectedRoute path="/addItem">
             <AddItem />
-          </Route>
+          </ProtectedRoute>
           <Route path="/">
             <Home />
           </Route>

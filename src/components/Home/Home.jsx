@@ -5,7 +5,7 @@ import getToken from '../../lib/tokens';
 const Home = () => {
   const userToken = localStorage.getItem('token');
 
-  let history = useHistory();
+  const history = useHistory();
 
   const handleClick = () => {
     const createdToken = getToken();

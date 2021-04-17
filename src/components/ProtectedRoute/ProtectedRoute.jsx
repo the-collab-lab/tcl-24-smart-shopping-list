@@ -2,13 +2,10 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 const ProtectedRoute = ({ children, ...props }) => {
-  const gotToken = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   return (
-    <Route
-      {...props}
-      render={() => (gotToken ? children : <Redirect to="/" />)}
-    />
+    <Route {...props} render={() => (token ? children : <Redirect to="/" />)} />
   );
 };
 
