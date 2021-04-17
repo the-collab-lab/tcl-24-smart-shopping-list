@@ -1,5 +1,14 @@
+import React, { Fragment } from 'react';
+
+import { Form } from '../Form/Form';
+import('./addItems.css');
+
 const AddItem = () => {
-  return <div>Add Items</div>;
+  return (
+    <Fragment>
+      <Form />
+    </Fragment>
+  );
 };
 
 export default AddItem;

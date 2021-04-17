@@ -1,8 +1,11 @@
 .nav-container {
   width: 100%;
-  position: absolute;
+  height: 5%;
+  position: fixed;
   bottom: 0;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a.nav-link.active {

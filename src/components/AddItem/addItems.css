@@ -1,0 +1,20 @@
+form.form-item {
+  width: 60%;
+  margin: auto;
+  border: 1px solid black;
+  padding: 2%;
+}
+label.form-radio-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+  width: 80%;
+  margin: auto;
+}
+div.form-error-msn {
+  color: red;
+}
+div.form-success-msn {
+  color: green;
+}

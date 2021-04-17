@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { Form } from '../Form/Form';
+
 import { useFirebase } from '../../hooks/useFirebase';
 
 const List = () => {
@@ -9,7 +9,6 @@ const List = () => {
 
   return (
     <div>
-      <Form />
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
       {value && (
