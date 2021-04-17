@@ -6,7 +6,6 @@ form.form-item {
 }
 label.form-radio-set {
   display: flex;
-  /* background-color: aqua; */
   flex-direction: column;
   justify-content: start;
   align-items: flex-start;

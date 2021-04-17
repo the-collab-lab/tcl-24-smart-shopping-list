@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { Form } from '../Form/Form';
 import('./addItems.css');
 
 const AddItem = () => {
   return (
-    <div>
+    <Fragment>
       <Form />
-    </div>
+    </Fragment>
   );
 };
 
