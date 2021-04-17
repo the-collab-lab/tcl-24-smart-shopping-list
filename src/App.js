@@ -5,17 +5,22 @@ import './App.css';
 import AddItem from './components/AddItem/AddItem.jsx';
 import List from './components/List/List.jsx';
 import NavBar from './components/NavBar/NavBar.jsx';
+import Home from './components/Home/Home';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/list">
+          <ProtectedRoute path="/list">
             <List />
-          </Route>
-          <Route path="/addItem">
+          </ProtectedRoute>
+          <ProtectedRoute path="/addItem">
             <AddItem />
+          </ProtectedRoute>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
         <NavBar />

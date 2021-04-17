@@ -3,7 +3,9 @@ import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
 
 export const Form = () => {
-  const { create } = useFirebase('things');
+  const token = localStorage.getItem('token');
+  const { create } = useFirebase(token);
+
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
 
