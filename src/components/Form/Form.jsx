@@ -9,7 +9,7 @@ export const Form = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
 
-  const [values, handleInputChange, setValues, resetValues] = useForm({
+  const [values, handleInputChange, setValues] = useForm({
     nameItem: '',
     selectTime: '',
     lastDate: null,
@@ -26,10 +26,14 @@ export const Form = () => {
         time: values.selectTime,
         lastDate: null,
       });
-
+      console.log(values);
       e.target.reset();
 
-      resetValues();
+      setValues({
+        nameItem: '',
+        selectTime: '',
+        lastDate: null,
+      });
       setSuccess('Data was send success');
       setTimeout(() => {
         setSuccess(null);

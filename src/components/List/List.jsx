@@ -4,11 +4,13 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
 
 const List = () => {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
 
-  const { getAll } = useFirebase(token);
+  const { getAll } = useFirebase('ths');
 
   const [value, loading, error] = useCollection(getAll());
+
+  console.log(value);
 
   return (
     <div>
