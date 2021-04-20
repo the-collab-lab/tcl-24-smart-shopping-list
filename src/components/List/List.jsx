@@ -6,7 +6,7 @@ import { useFirebase } from '../../hooks/useFirebase';
 const List = () => {
   // const token = localStorage.getItem('token');
 
-  const { getAll } = useFirebase('ths');
+  const { getAll } = useFirebase();
 
   const [value, loading, error] = useCollection(getAll());
 
@@ -19,7 +19,7 @@ const List = () => {
       {value && (
         <ul>
           {value.docs.map((doc) => (
-            <li key={doc.id}>{doc.data().name}</li>
+            <li key={doc.id}>{doc.data().userToken}</li>
           ))}
         </ul>
       )}

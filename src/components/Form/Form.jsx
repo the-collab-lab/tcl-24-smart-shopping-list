@@ -4,7 +4,7 @@ import { useForm } from '../../hooks/useForm';
 
 export const Form = () => {
   const token = localStorage.getItem('token');
-  const { create } = useFirebase(token);
+  const { create } = useFirebase();
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
@@ -25,8 +25,10 @@ export const Form = () => {
         name: values.nameItem,
         time: values.selectTime,
         lastDate: null,
+        // userToken: token
       });
-      console.log(values);
+
+      // console.log(values);
       e.target.reset();
 
       setValues({
