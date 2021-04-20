@@ -15,8 +15,8 @@ export const useFirebase = () => {
     return db.doc(id).get();
   };
 
-  const create = (data) => {
-    return db.doc(data.userToken).set(data);
+  const create = (userToken) => {
+    return db.doc(userToken);
   };
 
   const update = (id, value) => {
@@ -27,11 +27,16 @@ export const useFirebase = () => {
     return db.doc(id).delete();
   };
 
+  const newCollection = (token, data) => {
+    return db.doc(token).collection('data').add(data);
+  };
+
   return {
     getAll,
     getById,
     create,
     update,
     remove,
+    newCollection,
   };
 };
