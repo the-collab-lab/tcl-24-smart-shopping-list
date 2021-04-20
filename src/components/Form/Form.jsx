@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 export const Form = () => {
   const token = localStorage.getItem('token');
-  const { create } = useFirebase(token);
+  const { create, getAll } = useFirebase(token);
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
@@ -15,12 +16,37 @@ export const Form = () => {
     lastDate: null,
   });
 
+  const [value] = useCollection(getAll());
+
+  const isItemDuplicated = (name) => {
+    const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+
+    if (value) {
+      const item = value.docs.filter(
+        (doc) =>
+          doc.data().name.toLowerCase().replace(regex, '') ===
+          name.toLowerCase().replace(regex, ''),
+      );
+      return item.length ? true : false;
+    } else {
+      return false;
+    }
+  };
+
   const sendToFB = (e) => {
     e.preventDefault();
-    const itemLength = values?.nameItem;
+    const itemName = values?.nameItem;
     const selectLength = values?.selectTime;
 
-    if (itemLength && selectLength) {
+    if (isItemDuplicated(itemName)) {
+      setError('Item is already on the list');
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
+      return;
+    }
+
+    if (itemName && selectLength) {
       create({
         name: values.nameItem,
         time: values.selectTime,
