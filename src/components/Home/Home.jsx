@@ -12,36 +12,36 @@ const Home = () => {
   const userToken = localStorage.getItem('token');
 
   const [values, handleInputChange, setValues] = useForm({
-    token: 'hola',
+    token: '',
   });
 
-  // const [msn, setMsn] = useState('');
-  // const [load, setLoad] = useState('');
-  // const { getAll } = useFirebase();
+  const [msn, setMsn] = useState('');
+  const [load, setLoad] = useState('');
+  const { getAll } = useFirebase();
 
-  // function looking() {
-  //   setLoad('loading...')
-  //   var docRef = getAll().doc(values.token);
+  function looking() {
+    setLoad('loading...');
+    var docRef = getAll().doc(values.token);
 
-  //   docRef.get().then((doc) => {
-  //     if (doc.exists) {
-  //       console.log("Document data:", doc.data());
-  //       setMsn('The list is found');
-  //       setLoad('');
-  //       setTime();
-
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //       setMsn('The list does not found');
-  //       setLoad('');
-  //       setTime();
-  //     }
-  //   }).catch((error) => {
-  //     console.log("Error getting document:", error);
-  //   });
-
-  // }
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log('Document data:', doc.data());
+          setMsn('The list is found');
+          setLoad('');
+          // setTime();
+        } else {
+          console.log('No such document!');
+          setMsn('The list does not found');
+          setLoad('');
+          // setTime();
+        }
+      })
+      .catch((error) => {
+        console.log('Error getting document:', error);
+      });
+  }
 
   // const setTime = () => {
   //   setTimeout(() => {
@@ -68,7 +68,7 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
-    // looking();
+    looking();
     setValues({
       token: '',
     });
@@ -86,8 +86,8 @@ const Home = () => {
           <button type="submit">Search</button>
         </label>
       </form>
-      {/* {msn && <p>{msn}</p>}
-      {load && <p>{load}</p>} */}
+      {msn && <p>{msn}</p>}
+      {load && <p>{load}</p>}
       <button onClick={handleClick}>New List</button>
 
       {/* {userToken ? (
