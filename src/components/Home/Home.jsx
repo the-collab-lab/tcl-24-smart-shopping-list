@@ -12,19 +12,16 @@ import getToken from '../../lib/tokens';
 const Home = () => {
   const userToken = localStorage.getItem('token');
 
-  const { getAll } = useFirebase();
-
   const [values, handleInputChange, setValues] = useForm({
-    token: 'hola',
+    token: '',
   });
 
   const [msn, setMsn] = useState('');
   const [load, setLoad] = useState('');
-  // const { getAll } = useFirebase();
+  const { getAll } = useFirebase();
 
   function looking() {
     setLoad('loading...');
-    console.log(values.token);
     var docRef = getAll().doc(values.token);
 
     docRef
@@ -34,13 +31,12 @@ const Home = () => {
           console.log('Document data:', doc.data());
           setMsn('The list is found');
           setLoad('');
-          setTime();
+          // setTime();
         } else {
-          // doc.data() will be undefined in this case
           console.log('No such document!');
           setMsn('The list does not found');
           setLoad('');
-          setTime();
+          // setTime();
         }
       })
       .catch((error) => {
@@ -48,11 +44,12 @@ const Home = () => {
       });
   }
 
-  const setTime = () => {
-    setTimeout(() => {
-      setMsn('');
-    }, 1000);
-  };
+  // const setTime = () => {
+  //   setTimeout(() => {
+  //     setMsn('');
+  //   }, 1000);
+
+  // }
 
   const history = useHistory();
 
@@ -108,11 +105,6 @@ const Home = () => {
       {msn && <p>{msn}</p>}
       {load && <p>{load}</p>}
       <button onClick={handleClick}>New List</button>
-
-      {/* {userToken ? (
-        <Redirect to="/list" />
-      ) : (
-      )} */}
     </div>
   );
 };
