@@ -21,7 +21,7 @@ export const Form = () => {
     const selectLength = values?.selectTime;
 
     if (itemLength && selectLength) {
-      // create(token);
+      create(token);
 
       newCollection(token, {
         name: values.nameItem,
@@ -29,7 +29,6 @@ export const Form = () => {
         lastDate: null,
       });
 
-      // console.log(values);
       e.target.reset();
 
       setValues({

@@ -3,12 +3,6 @@ import { fb } from './../lib/firebase';
 export const useFirebase = () => {
   const db = fb.firestore().collection('lists');
 
-  // const docRef = db.collection("lists").doc(
-  //   'LW3QWM4IBucYC3tVDUiy'
-  // );
-
-  // console.log(docRef);
-
   const getAll = () => db;
 
   const getById = (id) => {
@@ -16,7 +10,7 @@ export const useFirebase = () => {
   };
 
   const create = (userToken) => {
-    return db.doc(userToken);
+    return db.doc(userToken).set({ userToken });
   };
 
   const update = (id, value) => {
