@@ -9,8 +9,9 @@ export const useFirebase = () => {
     return db.doc(id).get();
   };
 
-  const create = (userToken) => {
-    return db.doc(userToken).set({ userToken });
+  const create = (token, data) => {
+    db.doc(token).set({ token });
+    db.doc(token).collection('data').add(data);
   };
 
   const update = (id, value) => {
@@ -21,9 +22,9 @@ export const useFirebase = () => {
     return db.doc(id).delete();
   };
 
-  const newCollection = (token, data) => {
-    return db.doc(token).collection('data').add(data);
-  };
+  // const newCollection = (token, data) => {
+  //   return db.doc(token).collection('data').add(data);
+  // };
 
   return {
     getAll,
@@ -31,6 +32,6 @@ export const useFirebase = () => {
     create,
     update,
     remove,
-    newCollection,
+    // newCollection,
   };
 };

@@ -1,8 +1,9 @@
-import React from 'react';
 import { useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
 import { useHistory } from 'react-router-dom';
+import { useNotification } from '../../hooks/useNotification.js';
+
 import getToken from '../../lib/tokens';
 
 const Home = () => {
@@ -10,13 +11,22 @@ const Home = () => {
     token: '',
   });
 
-  const [msn, setMsn] = useState('');
-  const [error, setError] = useState('');
-  const [load, setLoad] = useState('');
+  const [
+    listNotFound,
+    error,
+    load,
+    setListNotFound,
+    setError,
+    setLoad,
+  ] = useNotification();
+
+  const history = useHistory();
   const { getAll } = useFirebase();
 
   function searching() {
-    setLoad('searching...');
+    const loadMsn = 'Searching....';
+
+    setLoad(loadMsn);
 
     var docRef = getAll().doc(values.token);
 
@@ -24,12 +34,11 @@ const Home = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          setMsn('The list is found');
           setLoad('');
           localStorage.setItem('token', values.token);
           history.push('/list');
         } else {
-          setMsn('The list is not found');
+          setListNotFound('The list is not found');
           setLoad('');
         }
       })
@@ -37,8 +46,6 @@ const Home = () => {
         setError(`Error getting document: ${error}`);
       });
   }
-
-  const history = useHistory();
 
   const handleClick = () => {
     const createdToken = getToken();
@@ -64,7 +71,7 @@ const Home = () => {
           <button type="submit">Search</button>
         </label>
       </form>
-      {msn && <p>{msn}</p>}
+      {listNotFound && <p>{listNotFound}</p>}
       {error && <p>{error}</p>}
       {load && <p>{load}</p>}
       <button onClick={handleClick}>New List</button>

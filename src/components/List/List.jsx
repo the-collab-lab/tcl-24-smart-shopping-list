@@ -8,9 +8,9 @@ const List = () => {
 
   const { getAll } = useFirebase();
 
-  const [value, loading, error] = useCollection(
-    getAll().doc(token).collection('data'),
-  );
+  const firebasePath = getAll().doc(token).collection('data');
+
+  const [value, loading, error] = useCollection(firebasePath);
 
   return (
     <div>

@@ -17,17 +17,22 @@ export const Form = () => {
 
   const sendToFB = (e) => {
     e.preventDefault();
+
     const itemLength = values?.nameItem;
     const selectLength = values?.selectTime;
 
     if (itemLength && selectLength) {
-      create(token);
-
-      newCollection(token, {
+      create(token, {
         name: values.nameItem,
         time: values.selectTime,
         lastDate: null,
       });
+
+      // newCollection(token, {
+      //   name: values.nameItem,
+      //   time: values.selectTime,
+      //   lastDate: null,
+      // });
 
       e.target.reset();
 
