@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useError } from '../../hooks/useError';
 
 export const Form = () => {
+  const [error, setTimeoutError, setError] = useError();
   const token = localStorage.getItem('token');
   const { create, getAll } = useFirebase(token);
 
-  const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
 
   const [values, handleInputChange, setValues] = useForm({
@@ -28,16 +29,14 @@ export const Form = () => {
     );
   };
 
-  const sendToFB = (e) => {
+  const sendToFirebase = (e) => {
     e.preventDefault();
     const itemName = values?.nameItem;
     const selectLength = values?.selectTime;
 
     if (isItemDuplicated(itemName)) {
       setError('Item is already on the list');
-      setTimeout(() => {
-        setError(null);
-      }, 2000);
+      setTimeoutError();
       e.target.reset();
       return;
     }
@@ -57,20 +56,16 @@ export const Form = () => {
         lastDate: null,
       });
       setSuccess('Data was send success');
-      setTimeout(() => {
-        setSuccess(null);
-      }, 2000);
+      setTimeoutError();
       return;
     }
 
     setError('Fill in all the blanks');
-    setTimeout(() => {
-      setError(null);
-    }, 2000);
+    setTimeoutError();
   };
 
   return (
-    <form onSubmit={sendToFB} className="form-item">
+    <form onSubmit={sendToFirebase} className="form-item">
       <label htmlFor="fname">
         Name of item:
         <input type="text" name="nameItem" onChange={handleInputChange} />
