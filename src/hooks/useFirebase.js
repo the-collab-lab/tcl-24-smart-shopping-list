@@ -5,26 +5,16 @@ export const useFirebase = () => {
 
   const getAll = () => db;
 
-  const getById = (id) => {
-    return db.doc(id).get();
-  };
+  const getById = (id) => db.doc(id).get();
 
   const create = (token, data) => {
     db.doc(token).set({ token });
-    db.doc(token).collection('data').add(data);
+    db.doc(token).collection('items').add(data);
   };
 
-  const update = (id, value) => {
-    return db.doc(id).update(value);
-  };
+  const update = (id, value) => db.doc(id).update(value);
 
-  const remove = (id) => {
-    return db.doc(id).delete();
-  };
-
-  // const newCollection = (token, data) => {
-  //   return db.doc(token).collection('data').add(data);
-  // };
+  const remove = (id) => db.doc(id).delete();
 
   return {
     getAll,

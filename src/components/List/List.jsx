@@ -1,6 +1,5 @@
 import React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
-
 import { useFirebase } from '../../hooks/useFirebase';
 
 const List = () => {
@@ -8,7 +7,7 @@ const List = () => {
 
   const { getAll } = useFirebase();
 
-  const firebasePath = getAll().doc(token).collection('data');
+  const firebasePath = getAll().doc(token).collection('items');
 
   const [value, loading, error] = useCollection(firebasePath);
 

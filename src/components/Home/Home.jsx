@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import getToken from '../../lib/tokens';
 import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
-import { useHistory } from 'react-router-dom';
 import { useNotification } from '../../hooks/useNotification.js';
-
-import getToken from '../../lib/tokens';
 
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
@@ -24,11 +22,9 @@ const Home = () => {
   const { getAll } = useFirebase();
 
   function searching() {
-    const loadMsn = 'Searching....';
+    setLoad('Searching....');
 
-    setLoad(loadMsn);
-
-    var docRef = getAll().doc(values.token);
+    const docRef = getAll().doc(values.token);
 
     docRef
       .get()
@@ -48,8 +44,8 @@ const Home = () => {
   }
 
   const handleClick = () => {
-    const createdToken = getToken();
-    localStorage.setItem('token', createdToken);
+    const token = getToken();
+    localStorage.setItem('token', token);
     history.push('/list');
   };
 
@@ -59,7 +55,6 @@ const Home = () => {
     setValues({
       token: '',
     });
-    e.target.reset();
   };
 
   return (
@@ -67,7 +62,12 @@ const Home = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Write Your Token
-          <input type="text" name="token" onChange={handleInputChange} />
+          <input
+            type="text"
+            name="token"
+            onChange={handleInputChange}
+            value={values.token}
+          />
           <button type="submit">Search</button>
         </label>
       </form>

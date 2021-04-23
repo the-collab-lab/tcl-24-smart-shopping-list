@@ -4,7 +4,7 @@ import { useForm } from '../../hooks/useForm';
 
 export const Form = () => {
   const token = localStorage.getItem('token');
-  const { create, newCollection } = useFirebase();
+  const { create } = useFirebase();
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
@@ -27,12 +27,6 @@ export const Form = () => {
         time: values.selectTime,
         lastDate: null,
       });
-
-      // newCollection(token, {
-      //   name: values.nameItem,
-      //   time: values.selectTime,
-      //   lastDate: null,
-      // });
 
       e.target.reset();
 
