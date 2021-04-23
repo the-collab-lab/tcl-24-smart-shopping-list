@@ -19,18 +19,13 @@ export const Form = () => {
   const [value] = useCollection(getAll());
 
   const isItemDuplicated = (name) => {
-    const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+    const puntuaction = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
-    if (value) {
-      const item = value.docs.filter(
-        (doc) =>
-          doc.data().name.toLowerCase().replace(regex, '') ===
-          name.toLowerCase().replace(regex, ''),
-      );
-      return item.length ? true : false;
-    } else {
-      return false;
-    }
+    return value?.docs?.some(
+      (doc) =>
+        doc.data().name.toLowerCase().replace(puntuaction, '') ===
+        name.toLowerCase().replace(puntuaction, ''),
+    );
   };
 
   const sendToFB = (e) => {
@@ -43,6 +38,7 @@ export const Form = () => {
       setTimeout(() => {
         setError(null);
       }, 2000);
+      e.target.reset();
       return;
     }
 
