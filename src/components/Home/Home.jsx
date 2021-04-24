@@ -2,14 +2,14 @@ import { useHistory } from 'react-router-dom';
 import getToken from '../../lib/tokens';
 import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
-import useError from '../../hooks/useError';
+import useNotification from '../../hooks/useNotification';
 
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
     token: '',
   });
 
-  const { load, setLoad, setError, error } = useError();
+  const { load, setLoad, setError, error } = useNotification();
 
   const history = useHistory();
   const { getAll } = useFirebase();

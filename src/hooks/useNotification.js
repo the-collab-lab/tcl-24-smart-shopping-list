@@ -1,9 +1,17 @@
 import { useState } from 'react';
 
-export const useNotification = () => {
-  const [listNotFound, setListNotFound] = useState('');
-  const [error, setError] = useState('');
+const useNotification = () => {
   const [load, setLoad] = useState('');
-
-  return [listNotFound, error, load, setListNotFound, setError, setLoad];
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  return {
+    load,
+    setLoad,
+    error,
+    setError,
+    success,
+    setSuccess,
+  };
 };
+
+export default useNotification;

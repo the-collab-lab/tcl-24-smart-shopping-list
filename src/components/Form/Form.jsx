@@ -3,10 +3,10 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
-import useError from '../../hooks/useError';
+import useNotification from '../../hooks/useNotification';
 
 export const Form = () => {
-  const { error, setError, load, setLoad, success, setSuccess } = useError();
+  const { error, setError, setLoad, success, setSuccess } = useNotification();
   const token = localStorage.getItem('token');
   const { create, getAll } = useFirebase();
 
