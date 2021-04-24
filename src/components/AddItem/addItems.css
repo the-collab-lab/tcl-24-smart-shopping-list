@@ -12,9 +12,9 @@ label.form-radio-set {
   width: 80%;
   margin: auto;
 }
-div.form-error-msn {
+p.form-error-msn {
   color: red;
 }
-div.form-success-msn {
+p.form-success-msn {
   color: green;
 }

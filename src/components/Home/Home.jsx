@@ -2,27 +2,20 @@ import { useHistory } from 'react-router-dom';
 import getToken from '../../lib/tokens';
 import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
-import { useNotification } from '../../hooks/useNotification.js';
+import useNotification from '../../hooks/useNotification';
 
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
     token: '',
   });
 
-  const [
-    listNotFound,
-    error,
-    load,
-    setListNotFound,
-    setError,
-    setLoad,
-  ] = useNotification();
+  const { load, setLoad, setError, error } = useNotification();
 
   const history = useHistory();
   const { getAll } = useFirebase();
 
   function searching() {
-    setLoad('Searching....');
+    setLoad('Searching...');
 
     const docRef = getAll().doc(values.token);
 
@@ -34,7 +27,7 @@ const Home = () => {
           localStorage.setItem('token', values.token);
           history.push('/list');
         } else {
-          setListNotFound('The list is not found');
+          setError('The list is not found');
           setLoad('');
         }
       })
@@ -61,17 +54,17 @@ const Home = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          Write Your Token
+          Type Your Token
           <input
             type="text"
             name="token"
             onChange={handleInputChange}
             value={values.token}
+            required
           />
           <button type="submit">Search</button>
         </label>
       </form>
-      {listNotFound && <p>{listNotFound}</p>}
       {error && <p>{error}</p>}
       {load && <p>{load}</p>}
       <button onClick={handleClick}>New List</button>

@@ -22,6 +22,5 @@ export const useFirebase = () => {
     create,
     update,
     remove,
-    // newCollection,
   };
 };
