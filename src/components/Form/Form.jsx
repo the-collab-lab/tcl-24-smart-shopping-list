@@ -8,13 +8,17 @@ import { useAlert } from '../../hooks/useAlert';
 export const Form = () => {
   const [alertMessage, setTimeoutAlert, setAlertMessage] = useAlert();
   const token = localStorage.getItem('token');
-  const { create, getAll } = useFirebase(token);
+  const { create, getAll } = useFirebase();
+
   const [values, handleInputChange, reset] = useForm({
     nameItem: '',
     selectTime: '',
     lastDate: null,
   });
-  const [value] = useCollection(getAll());
+
+  const firebasePath = getAll().doc(token).collection('items');
+
+  const [value] = useCollection(firebasePath);
 
   const isItemDuplicated = (name) => {
     const puntuaction = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
@@ -43,7 +47,7 @@ export const Form = () => {
     }
 
     if (itemName && selectLength) {
-      create({
+      create(token, {
         name: values.nameItem,
         time: values.selectTime,
         lastDate: null,

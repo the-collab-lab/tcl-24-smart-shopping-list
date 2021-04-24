@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useAlert = (initialAlert = { type: '', message: '' }) => {
+  // const [listNotFound, setListNotFound] = useState('');
+  // const [error, setError] = useState('');
+  const [load, setLoad] = useState(initialAlert);
+
   const [alertMessage, setAlertMessage] = useState(initialAlert);
   const timeoutIdRef = useRef();
 
@@ -16,5 +20,5 @@ export const useAlert = (initialAlert = { type: '', message: '' }) => {
     };
   }, []);
 
-  return [alertMessage, setTimeoutAlert, setAlertMessage];
+  return [alertMessage, setTimeoutAlert, setAlertMessage, load, setLoad];
 };
