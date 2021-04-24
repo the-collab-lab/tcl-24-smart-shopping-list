@@ -2,39 +2,20 @@ import { useHistory } from 'react-router-dom';
 import getToken from '../../lib/tokens';
 import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
-import { useNotification } from '../../hooks/useNotification.js';
-import { useAlert } from '../../hooks/useAlert';
+import useError from '../../hooks/useError';
 
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
     token: '',
   });
 
-  // const [
-  //   listNotFound,
-  //   error,
-  //   load,
-  //   setListNotFound,
-  //   setError,
-  //   setLoad,
-  // ] = useNotification();
-
-  const [
-    load,
-    setLoad,
-    alertMessage,
-    setTimeoutAlert,
-    setAlertMessage,
-  ] = useAlert();
+  const { load, setLoad, setError, error } = useError();
 
   const history = useHistory();
   const { getAll } = useFirebase();
 
   function searching() {
-    setLoad({
-      type: 'form-load-msn',
-      message: 'Searching',
-    });
+    setLoad('Searching...');
 
     const docRef = getAll().doc(values.token);
 
@@ -42,28 +23,16 @@ const Home = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          setLoad({
-            type: '',
-            message: '',
-          });
+          setLoad('');
           localStorage.setItem('token', values.token);
           history.push('/list');
         } else {
-          setAlertMessage({
-            type: 'form-error-msn',
-            message: 'The list is not found',
-          });
-          setLoad({
-            type: '',
-            message: '',
-          });
+          setError('The list is not found');
+          setLoad('');
         }
       })
       .catch((error) => {
-        setAlertMessage({
-          type: 'form-error-msn',
-          message: `Error getting document: ${error}`,
-        });
+        setError(`Error getting document: ${error}`);
       });
   }
 
@@ -85,23 +54,19 @@ const Home = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          Write Your Token
+          Type Your Token
           <input
             type="text"
             name="token"
             onChange={handleInputChange}
             value={values.token}
+            required
           />
           <button type="submit">Search</button>
         </label>
       </form>
-      {/* {listNotFound && <p>{listNotFound}</p>}
-      {error && <p>{error}</p>} */}
-      {load && <p>{load.message}</p>}
-
-      {alertMessage && (
-        <p className={alertMessage.type}>{alertMessage.message}</p>
-      )}
+      {error && <p>{error}</p>}
+      {load && <p>{load}</p>}
       <button onClick={handleClick}>New List</button>
     </div>
   );

@@ -3,10 +3,10 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
-import { useAlert } from '../../hooks/useAlert';
+import useError from '../../hooks/useError';
 
 export const Form = () => {
-  const [alertMessage, setTimeoutAlert, setAlertMessage] = useAlert();
+  const { error, setError, load, setLoad, success, setSuccess } = useError();
   const token = localStorage.getItem('token');
   const { create, getAll } = useFirebase();
 
@@ -32,21 +32,20 @@ export const Form = () => {
 
   const sendToFirebase = (e) => {
     e.preventDefault();
+    setSuccess('');
+    setError('');
     const itemName = values?.nameItem;
     const selectLength = values?.selectTime;
 
     if (isItemDuplicated(itemName)) {
-      setAlertMessage({
-        type: 'form-error-msn',
-        message: 'Item is already on the list',
-      });
-      setTimeoutAlert();
-
+      setLoad('');
+      setError('Item is already on the list');
       reset();
       return;
     }
 
     if (itemName && selectLength) {
+      setLoad('');
       create(token, {
         name: values.nameItem,
         time: values.selectTime,
@@ -55,19 +54,11 @@ export const Form = () => {
 
       reset();
 
-      setAlertMessage({
-        type: 'form-success-msn',
-        message: 'Data was send success',
-      });
-      setTimeoutAlert();
+      setSuccess('Data was send successfully');
       return;
     }
 
-    setAlertMessage({
-      type: 'form-error-msn',
-      message: 'Fill in all the blanks',
-    });
-    setTimeoutAlert();
+    setError('Fill in all the blanks');
   };
 
   return (
@@ -121,9 +112,8 @@ export const Form = () => {
       <p>Last purchased date{values.lastDate}</p>
       <button type="submit">Send</button>
 
-      {alertMessage && (
-        <div className={alertMessage.type}> {alertMessage.message}</div>
-      )}
+      {error && <p className="form-error-msn">{error}</p>}
+      {success && <p className="form-success-msn">{success}</p>}
     </form>
   );
 };
