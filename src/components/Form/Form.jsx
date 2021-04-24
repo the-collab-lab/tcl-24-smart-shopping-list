@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
+
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { useError } from '../../hooks/useError';
+import { useAlert } from '../../hooks/useAlert';
 
 export const Form = () => {
-  const [error, setTimeoutError, setError] = useError();
+  const [alertMessage, setTimeoutAlert, setAlertMessage] = useAlert();
   const token = localStorage.getItem('token');
   const { create, getAll } = useFirebase(token);
-
-  const [success, setSuccess] = useState(null);
-
   const [values, handleInputChange, reset] = useForm({
     nameItem: '',
     selectTime: '',
     lastDate: null,
   });
-
   const [value] = useCollection(getAll());
 
   const isItemDuplicated = (name) => {
@@ -35,9 +32,12 @@ export const Form = () => {
     const selectLength = values?.selectTime;
 
     if (isItemDuplicated(itemName)) {
-      setError('Item is already on the list');
-      setTimeoutError();
-      // e.target.reset();
+      setAlertMessage({
+        type: 'form-error-msn',
+        message: 'Item is already on the list',
+      });
+      setTimeoutAlert();
+
       reset();
       return;
     }
@@ -49,17 +49,21 @@ export const Form = () => {
         lastDate: null,
       });
 
-      // e.target.reset();
-
       reset();
 
-      setSuccess('Data was send success');
-      setTimeoutError();
+      setAlertMessage({
+        type: 'form-success-msn',
+        message: 'Data was send success',
+      });
+      setTimeoutAlert();
       return;
     }
 
-    setError('Fill in all the blanks');
-    setTimeoutError();
+    setAlertMessage({
+      type: 'form-error-msn',
+      message: 'Fill in all the blanks',
+    });
+    setTimeoutAlert();
   };
 
   return (
@@ -112,8 +116,10 @@ export const Form = () => {
 
       <p>Last purchased date{values.lastDate}</p>
       <button type="submit">Send</button>
-      {error && <div className="form-error-msn">{error}</div>}
-      {success && <div className="form-success-msn">{success}</div>}
+
+      {alertMessage && (
+        <div className={alertMessage.type}> {alertMessage.message}</div>
+      )}
     </form>
   );
 };

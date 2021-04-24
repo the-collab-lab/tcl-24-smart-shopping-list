@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useError = (initialError = '') => {
-  const [error, setError] = useState(initialError);
+export const useAlert = (initialAlert = { type: '', message: '' }) => {
+  const [alertMessage, setAlertMessage] = useState(initialAlert);
   const timeoutIdRef = useRef();
 
-  const setTimeoutError = () => {
+  const setTimeoutAlert = () => {
     timeoutIdRef.current = setTimeout(() => {
-      setError(null);
+      setAlertMessage(initialAlert);
     }, 2000);
   };
 
@@ -16,5 +16,5 @@ export const useError = (initialError = '') => {
     };
   }, []);
 
-  return [error, setTimeoutError, setError];
+  return [alertMessage, setTimeoutAlert, setAlertMessage];
 };
