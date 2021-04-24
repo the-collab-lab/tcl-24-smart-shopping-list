@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -11,7 +11,7 @@ export const Form = () => {
 
   const [success, setSuccess] = useState(null);
 
-  const [values, handleInputChange, setValues] = useForm({
+  const [values, handleInputChange, reset] = useForm({
     nameItem: '',
     selectTime: '',
     lastDate: null,
@@ -37,7 +37,8 @@ export const Form = () => {
     if (isItemDuplicated(itemName)) {
       setError('Item is already on the list');
       setTimeoutError();
-      e.target.reset();
+      // e.target.reset();
+      reset();
       return;
     }
 
@@ -48,13 +49,10 @@ export const Form = () => {
         lastDate: null,
       });
 
-      e.target.reset();
+      // e.target.reset();
 
-      setValues({
-        nameItem: '',
-        selectTime: '',
-        lastDate: null,
-      });
+      reset();
+
       setSuccess('Data was send success');
       setTimeoutError();
       return;
@@ -68,7 +66,12 @@ export const Form = () => {
     <form onSubmit={sendToFirebase} className="form-item">
       <label htmlFor="fname">
         Name of item:
-        <input type="text" name="nameItem" onChange={handleInputChange} />
+        <input
+          type="text"
+          name="nameItem"
+          onChange={handleInputChange}
+          value={values.nameItem}
+        />
       </label>
 
       <div>
@@ -78,8 +81,9 @@ export const Form = () => {
             <input
               type="radio"
               name="selectTime"
-              onChange={handleInputChange}
               value="7"
+              checked={values.selectTime === '7'}
+              onChange={handleInputChange}
             />
             Soon (in the next 7 days)
           </label>
@@ -87,8 +91,9 @@ export const Form = () => {
             <input
               type="radio"
               name="selectTime"
-              onChange={handleInputChange}
               value="14"
+              checked={values.selectTime === '14'}
+              onChange={handleInputChange}
             />
             Kind of soon (in the next 14 days)
           </label>
@@ -96,8 +101,9 @@ export const Form = () => {
             <input
               type="radio"
               name="selectTime"
-              onChange={handleInputChange}
               value="30"
+              checked={values.selectTime === '30'}
+              onChange={handleInputChange}
             />
             Not soon (in the next 30 days)
           </label>
