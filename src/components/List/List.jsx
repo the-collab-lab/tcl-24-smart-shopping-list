@@ -15,6 +15,14 @@ const List = () => {
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
+
+      {value && value.empty && (
+        <p>
+          There are not items in this list yet. You can add items in the button
+          "Add Item" below !
+        </p>
+      )}
+
       {value && (
         <ul>
           {value.docs.map((doc) => (
