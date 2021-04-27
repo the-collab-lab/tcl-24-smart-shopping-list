@@ -18,12 +18,12 @@ const List = () => {
 
       {value && value.empty && (
         <p>
-          There are not items in this list yet. You can add items in the button
-          "Add Item" below !
+          There are not items in this list yet. You can add items with the "Add
+          Item" button at the bottom!
         </p>
       )}
 
-      {value && (
+      {value && !value.empty && (
         <ul>
           {value.docs.map((doc) => (
             <li key={doc.id}>{doc.data().name}</li>
