@@ -16,10 +16,10 @@ const List = () => {
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
 
-      {value && value.empty && (
+      {value?.empty && (
         <p>
-          There are not items in this list yet. You can add items with the "Add
-          Item" button at the bottom!
+          There are not any item in this list yet. You can add items with the
+          "Add Item" button at the bottom!
         </p>
       )}
 
