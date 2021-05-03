@@ -51,7 +51,8 @@ export const Form = () => {
         time: values.selectTime,
         lastDate: null,
         times: 0,
-        prevPurchs: null,
+        prevDate: null,
+        latestInterval: 0,
       });
 
       reset();

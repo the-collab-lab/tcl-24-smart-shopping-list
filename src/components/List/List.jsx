@@ -20,9 +20,19 @@ const List = () => {
 
   const [value, loading, error] = useCollection(firebasePath);
 
-  const handleCheck = (id, lastDate, times) => {
+  const handleCheck = (id, lastDate, prevDate, latestInterval, times) => {
     if (has24HoursPassed(lastDate) === false) {
       const date = new Date();
+      if (times >= 1) {
+        prevDate = lastDate;
+        lastDate = date;
+        update(token, id, {
+          lastDate: lastDate,
+          prevDate: prevDate,
+          times: times + 1,
+        });
+        return;
+      }
       update(token, id, { lastDate: date, times: times + 1 });
     }
   };
@@ -59,7 +69,13 @@ const List = () => {
                 type="checkbox"
                 checked={has24HoursPassed(doc.data().lastDate)}
                 onChange={() =>
-                  handleCheck(doc.id, doc.data().lastDate, doc.data().times)
+                  handleCheck(
+                    doc.id,
+                    doc.data().lastDate,
+                    doc.data().prevDate,
+                    doc.data().latestInterval,
+                    doc.data().times,
+                  )
                 }
               />
               {doc.data().name}
