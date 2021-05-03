@@ -50,6 +50,8 @@ export const Form = () => {
         name: values.nameItem,
         time: values.selectTime,
         lastDate: null,
+        times: 0,
+        prevPurchs: null,
       });
 
       reset();

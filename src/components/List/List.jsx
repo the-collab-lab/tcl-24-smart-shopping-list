@@ -1,20 +1,29 @@
 import React from 'react';
+import { useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
+
+import calculateEstimate from '../../lib/estimates.js';
 
 const List = () => {
   const token = localStorage.getItem('token');
 
   const { getAll, update } = useFirebase();
 
+  // const [times, setTimes] = useState(0)
+
+  // calculateEstimate();
+
+  console.log(calculateEstimate(14, 20, 2));
+
   const firebasePath = getAll().doc(token).collection('items');
 
   const [value, loading, error] = useCollection(firebasePath);
 
-  const handleCheck = (id, lastDate) => {
+  const handleCheck = (id, lastDate, times) => {
     if (has24HoursPassed(lastDate) === false) {
       const date = new Date();
-      update(token, id, { lastDate: date });
+      update(token, id, { lastDate: date, times: times + 1 });
     }
   };
 
@@ -49,7 +58,9 @@ const List = () => {
               <input
                 type="checkbox"
                 checked={has24HoursPassed(doc.data().lastDate)}
-                onChange={() => handleCheck(doc.id, doc.data().lastDate)}
+                onChange={() =>
+                  handleCheck(doc.id, doc.data().lastDate, doc.data().times)
+                }
               />
               {doc.data().name}
             </li>
