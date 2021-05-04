@@ -10,30 +10,41 @@ const List = () => {
 
   const { getAll, update } = useFirebase();
 
-  // const [times, setTimes] = useState(0)
-
-  // calculateEstimate();
-
-  console.log(calculateEstimate(14, 20, 2));
-
   const firebasePath = getAll().doc(token).collection('items');
 
   const [value, loading, error] = useCollection(firebasePath);
 
-  const handleCheck = (id, lastDate, prevDate, latestInterval, times) => {
+  const handleCheck = (id, lastDate, time, prevDate, latestInterval, times) => {
     if (has24HoursPassed(lastDate) === false) {
       const date = new Date();
+
       if (times >= 1) {
+        const dayOne = new Date(prevDate.toDate());
+        const dayTwo = new Date(lastDate.toDate());
+        const result = dayTwo - dayOne;
+        var diffDay = Math.round(result / (1000 * 60 * 60 * 24));
+
         prevDate = lastDate;
         lastDate = date;
+
+        const num = calculateEstimate(time, latestInterval, times);
+
         update(token, id, {
           lastDate: lastDate,
           prevDate: prevDate,
           times: times + 1,
+          latestInterval: diffDay,
+          estimatedNum: num,
         });
+
         return;
       }
-      update(token, id, { lastDate: date, times: times + 1 });
+
+      update(token, id, {
+        lastDate: date,
+        prevDate: lastDate,
+        times: times + 1,
+      });
     }
   };
 
@@ -72,6 +83,7 @@ const List = () => {
                   handleCheck(
                     doc.id,
                     doc.data().lastDate,
+                    doc.data().time,
                     doc.data().prevDate,
                     doc.data().latestInterval,
                     doc.data().times,
@@ -88,3 +100,5 @@ const List = () => {
 };
 
 export default List;
+
+// lastDate.getTime();
