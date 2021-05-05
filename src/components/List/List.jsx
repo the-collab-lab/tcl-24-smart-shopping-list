@@ -14,35 +14,31 @@ const List = () => {
 
   const [value, loading, error] = useCollection(firebasePath);
 
-  const handleCheck = (id, lastDate, time, prevDate, latestInterval, times) => {
+  const handleCheck = (id, lastDate, time, times, lastEstimate) => {
     if (has24HoursPassed(lastDate) === false) {
-      const date = new Date();
+      const currentDate = new Date();
 
       if (times >= 1) {
-        const dayOne = new Date(prevDate.toDate());
-        const dayTwo = new Date(lastDate.toDate());
-        const result = dayTwo - dayOne;
+        const dayOne = new Date(lastDate.toDate());
+        const result = currentDate - dayOne;
         var diffDay = Math.round(result / (1000 * 60 * 60 * 24));
 
-        prevDate = lastDate;
-        lastDate = date;
-
-        const num = calculateEstimate(time, latestInterval, times);
+        const num =
+          times == 1
+            ? calculateEstimate(time, time, times + 1)
+            : calculateEstimate(lastEstimate, diffDay, times + 1);
 
         update(token, id, {
-          lastDate: lastDate,
-          prevDate: prevDate,
+          lastDate: currentDate,
           times: times + 1,
-          latestInterval: diffDay,
-          estimatedNum: num,
+          lastEstimate: num,
         });
 
         return;
       }
 
       update(token, id, {
-        lastDate: date,
-        prevDate: lastDate,
+        lastDate: currentDate,
         times: times + 1,
       });
     }
@@ -60,6 +56,7 @@ const List = () => {
 
     return false;
   };
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -84,9 +81,8 @@ const List = () => {
                     doc.id,
                     doc.data().lastDate,
                     doc.data().time,
-                    doc.data().prevDate,
-                    doc.data().latestInterval,
                     doc.data().times,
+                    doc.data().lastEstimate,
                   )
                 }
               />
@@ -100,5 +96,3 @@ const List = () => {
 };
 
 export default List;
-
-// lastDate.getTime();
