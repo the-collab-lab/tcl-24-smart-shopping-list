@@ -30,10 +30,11 @@ const List = () => {
 
     return false;
   };
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <span data-testid="loading">Collection: Loading...</span>}
 
       {value?.empty && (
         <p>
