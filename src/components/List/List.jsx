@@ -1,5 +1,3 @@
-import React from 'react';
-import { useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
 
@@ -19,12 +17,12 @@ const List = () => {
       const currentDate = new Date();
 
       if (times >= 1) {
-        const dayOne = new Date(lastDate.toDate());
-        const result = currentDate - dayOne;
-        var diffDay = Math.round(result / (1000 * 60 * 60 * 24));
+        let dayOne = new Date(lastDate.toDate());
+        let result = currentDate - dayOne;
+        let diffDay = Math.round(result / (1000 * 60 * 60 * 24));
 
         const num =
-          times == 1
+          times === 1
             ? calculateEstimate(time, time, times + 1)
             : calculateEstimate(lastEstimate, diffDay, times + 1);
 

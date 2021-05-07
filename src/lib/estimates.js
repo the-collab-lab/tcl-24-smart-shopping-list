@@ -13,9 +13,9 @@ const calculateEstimate = (lastEstimate, latestInterval, numberOfPurchases) => {
     if (isNaN(lastEstimate)) {
       lastEstimate = 14;
     }
-    let previousFactor = lastEstimate * numberOfPurchases;
-    let latestFactor = latestInterval * (numberOfPurchases - 1);
-    let totalDivisor = numberOfPurchases * 2 - 1;
+    const previousFactor = lastEstimate * numberOfPurchases;
+    const latestFactor = latestInterval * (numberOfPurchases - 1);
+    const totalDivisor = numberOfPurchases * 2 - 1;
     return Math.round((previousFactor + latestFactor) / totalDivisor);
   } else {
     return latestInterval;
