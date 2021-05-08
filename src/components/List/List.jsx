@@ -11,7 +11,7 @@ const List = () => {
 
   const [value, loading, error] = useCollection(firebasePath);
 
-  const [filter, setFilter] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const handleCheck = (id, lastDate) => {
     if (has24HoursPassed(lastDate) === false) {
@@ -33,6 +33,12 @@ const List = () => {
     return false;
   };
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const clearFilter = () => setInputValue('');
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -47,14 +53,12 @@ const List = () => {
 
       {value && !value.empty && (
         <>
-          <input value={filter} onChange={(e) => setFilter(e.target.value)} />
-          {filter.length >= 1 && (
-            <button onClick={() => setFilter('')}>X</button>
-          )}
+          <input value={inputValue} onChange={handleInputChange} />
+          {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
 
           <ul>
             {value.docs
-              .filter((doc) => doc.data().name.includes(filter))
+              .filter((doc) => doc.data().name.includes(inputValue))
               .map((doc) => (
                 <li key={doc.id}>
                   <input
