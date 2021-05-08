@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
 
@@ -11,6 +12,8 @@ const List = () => {
   const firebasePath = getAll().doc(token).collection('items');
 
   const [value, loading, error] = useCollection(firebasePath);
+
+  const [inputValue, setInputValue] = useState('');
 
   const handleCheck = (id, lastDate, time, times, lastEstimate) => {
     if (has24HoursPassed(lastDate) === false) {
@@ -55,6 +58,12 @@ const List = () => {
     return false;
   };
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const clearFilter = () => setInputValue('');
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -68,26 +77,33 @@ const List = () => {
       )}
 
       {value && !value.empty && (
-        <ul>
-          {value.docs.map((doc) => (
-            <li key={doc.id}>
-              <input
-                type="checkbox"
-                checked={has24HoursPassed(doc.data().lastDate)}
-                onChange={() =>
-                  handleCheck(
-                    doc.id,
-                    doc.data().lastDate,
-                    doc.data().time,
-                    doc.data().times,
-                    doc.data().lastEstimate,
-                  )
-                }
-              />
-              {doc.data().name}
-            </li>
-          ))}
-        </ul>
+        <>
+          <input value={inputValue} onChange={handleInputChange} />
+          {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
+
+          <ul>
+            {value.docs
+              .filter((doc) => doc.data().name.includes(inputValue))
+              .map((doc) => (
+                <li key={doc.id}>
+                  <input
+                    type="checkbox"
+                    checked={has24HoursPassed(doc.data().lastDate)}
+                    onChange={() =>
+                      handleCheck(
+                        doc.id,
+                        doc.data().lastDate,
+                        doc.data().time,
+                        doc.data().times,
+                        doc.data().lastEstimate,
+                      )
+                    }
+                  />
+                  {doc.data().name}
+                </li>
+              ))}
+          </ul>
+        </>
       )}
     </div>
   );
