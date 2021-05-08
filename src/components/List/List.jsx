@@ -1,6 +1,7 @@
-import React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
+
+import calculateEstimate from '../../lib/estimates.js';
 
 const List = () => {
   const token = localStorage.getItem('token');
@@ -11,10 +12,33 @@ const List = () => {
 
   const [value, loading, error] = useCollection(firebasePath);
 
-  const handleCheck = (id, lastDate) => {
+  const handleCheck = (id, lastDate, time, times, lastEstimate) => {
     if (has24HoursPassed(lastDate) === false) {
-      const date = new Date();
-      update(token, id, { lastDate: date });
+      const currentDate = new Date();
+
+      if (times >= 1) {
+        let dayOne = new Date(lastDate.toDate());
+        let result = currentDate - dayOne;
+        let diffDay = Math.round(result / (1000 * 60 * 60 * 24));
+
+        const num =
+          times === 1
+            ? calculateEstimate(time, time, times + 1)
+            : calculateEstimate(lastEstimate, diffDay, times + 1);
+
+        update(token, id, {
+          lastDate: currentDate,
+          times: times + 1,
+          lastEstimate: num,
+        });
+
+        return;
+      }
+
+      update(token, id, {
+        lastDate: currentDate,
+        times: times + 1,
+      });
     }
   };
 
@@ -30,6 +54,7 @@ const List = () => {
 
     return false;
   };
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -49,7 +74,15 @@ const List = () => {
               <input
                 type="checkbox"
                 checked={has24HoursPassed(doc.data().lastDate)}
-                onChange={() => handleCheck(doc.id, doc.data().lastDate)}
+                onChange={() =>
+                  handleCheck(
+                    doc.id,
+                    doc.data().lastDate,
+                    doc.data().time,
+                    doc.data().times,
+                    doc.data().lastEstimate,
+                  )
+                }
               />
               {doc.data().name}
             </li>
