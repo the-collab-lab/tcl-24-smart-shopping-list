@@ -78,7 +78,11 @@ const List = () => {
 
       {value && !value.empty && (
         <>
-          <input value={inputValue} onChange={handleInputChange} />
+          <input
+            value={inputValue}
+            onChange={handleInputChange}
+            data-testid="filter-input"
+          />
           {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
 
           <ul>
@@ -87,6 +91,7 @@ const List = () => {
               .map((doc) => (
                 <li key={doc.id}>
                   <input
+                    data-testid={`checkbox-${doc.id}`}
                     type="checkbox"
                     checked={has24HoursPassed(doc.data().lastDate)}
                     onChange={() =>

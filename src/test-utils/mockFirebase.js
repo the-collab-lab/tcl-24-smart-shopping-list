@@ -12,7 +12,7 @@ export const getMockCollection = ({ docs = [] } = {}) => {
   const collection = jest.fn(() => ({
     doc,
   }));
-  return collection;
+  return { collection, mockAdd, mockUpdate, mockDelete };
 };
 
 export default getMockCollection;
