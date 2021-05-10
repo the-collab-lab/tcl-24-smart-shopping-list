@@ -7,7 +7,7 @@ import calculateEstimate from '../../lib/estimates.js';
 const List = () => {
   const token = localStorage.getItem('token');
 
-  const { getAll, update } = useFirebase();
+  const { getAll, update, remove } = useFirebase();
 
   const firebasePath = getAll().doc(token).collection('items');
 
@@ -64,6 +64,20 @@ const List = () => {
 
   const clearFilter = () => setInputValue('');
 
+  const handleDelete = (id) => {
+    if (window.confirm('are you sure to delete the item?')) {
+      firebasePath
+        .doc(id)
+        .delete()
+        .then(() => {
+          console.log('Document successfully deleted!');
+        })
+        .catch((error) => {
+          console.error('Error removing document: ', error);
+        });
+    }
+  };
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -100,6 +114,9 @@ const List = () => {
                     }
                   />
                   {doc.data().name}
+                  <button onClick={() => handleDelete(doc.id)}>
+                    <i className="fas fa-trash"></i>
+                  </button>
                 </li>
               ))}
           </ul>
