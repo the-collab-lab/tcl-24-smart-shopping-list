@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
+import useNotification from '../../hooks/useNotification';
 
 import calculateEstimate from '../../lib/estimates.js';
 
@@ -12,6 +13,15 @@ const List = () => {
   const firebasePath = getAll().doc(token).collection('items');
 
   const [value, loading, error] = useCollection(firebasePath);
+
+  const {
+    success,
+    error: errorDelete,
+    setSuccess,
+    setError,
+    load,
+    setLoad,
+  } = useNotification();
 
   const [inputValue, setInputValue] = useState('');
 
@@ -65,17 +75,24 @@ const List = () => {
   const clearFilter = () => setInputValue('');
 
   const handleDelete = (id) => {
+    const clear = () => {
+      clearTimeout(timeSpecial);
+    };
+
     if (window.confirm('are you sure to delete the item?')) {
-      firebasePath
-        .doc(id)
-        .delete()
+      setLoad('Removing element...');
+      remove(token, id)
         .then(() => {
-          console.log('Document successfully deleted!');
+          setLoad('');
+          setSuccess('Document successfully deleted!');
         })
-        .catch((error) => {
-          console.error('Error removing document: ', error);
-        });
+        .catch((err) => setError('Error removing document: ', err));
     }
+    const timeSpecial = setTimeout(() => {
+      setSuccess('');
+      setError('');
+      clear();
+    }, 3000);
   };
 
   return (
@@ -94,6 +111,10 @@ const List = () => {
         <>
           <input value={inputValue} onChange={handleInputChange} />
           {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
+
+          {load && <p>{load}</p>}
+          {errorDelete && <p>{errorDelete}</p>}
+          {success && <p>{success}</p>}
 
           <ul>
             {value.docs
