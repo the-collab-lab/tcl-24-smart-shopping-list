@@ -4,12 +4,17 @@ import { useFirebase } from '../../hooks/useFirebase';
 
 import calculateEstimate from '../../lib/estimates.js';
 
+import './list.css';
+
 const List = () => {
   const token = localStorage.getItem('token');
 
   const { getAll, update } = useFirebase();
 
-  const firebasePath = getAll().doc(token).collection('items').orderBy('name');
+  const firebasePath = getAll()
+    .doc(token)
+    .collection('items')
+    .orderBy('lastEstimate');
 
   const [value, loading, error] = useCollection(firebasePath);
 
@@ -64,6 +69,29 @@ const List = () => {
 
   const clearFilter = () => setInputValue('');
 
+  const groups = (list) => {
+    let listByGroups = [[], [], [], []];
+
+    const today = new Date();
+
+    list.forEach((element) => {
+      if (element.data().lastEstimate < 7 && element.data().lastEstimate > 0)
+        listByGroups[0].push(element);
+      if (element.data().lastEstimate >= 7 && element.data().lastEstimate <= 30)
+        listByGroups[1].push(element);
+      if (element.data().lastEstimate > 30) listByGroups[2].push(element);
+      if (
+        element.data().lastEstimate === 0 &&
+        today - element.data().lastDate > element.data().lastEstimate * 2
+      )
+        listByGroups[3].push(element);
+    });
+
+    console.log('listByGroups', listByGroups);
+
+    return listByGroups;
+  };
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -82,10 +110,11 @@ const List = () => {
           {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
 
           <ul>
-            {value.docs
-              .filter((doc) => doc.data().name.includes(inputValue))
-              .map((doc) => (
-                <li key={doc.id}>
+            {groups(
+              value.docs.filter((doc) => doc.data().name.includes(inputValue)),
+            ).map((group, indexGroup) =>
+              group.map((doc) => (
+                <li key={doc.id} className={`group-${indexGroup}`}>
                   <input
                     type="checkbox"
                     checked={has24HoursPassed(doc.data().lastDate)}
@@ -100,8 +129,10 @@ const List = () => {
                     }
                   />
                   {doc.data().name}
+                  {doc.data().lastEstimate}
                 </li>
-              ))}
+              )),
+            )}
           </ul>
         </>
       )}
