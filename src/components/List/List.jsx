@@ -9,7 +9,7 @@ const List = () => {
 
   const { getAll, update } = useFirebase();
 
-  const firebasePath = getAll().doc(token).collection('items');
+  const firebasePath = getAll().doc(token).collection('items').orderBy('name');
 
   const [value, loading, error] = useCollection(firebasePath);
 
