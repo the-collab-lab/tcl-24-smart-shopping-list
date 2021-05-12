@@ -14,7 +14,8 @@ const List = () => {
   const firebasePath = getAll()
     .doc(token)
     .collection('items')
-    .orderBy('lastEstimate');
+    .orderBy('lastEstimate')
+    .orderBy('name');
 
   const [value, loading, error] = useCollection(firebasePath);
 
@@ -70,26 +71,49 @@ const List = () => {
   const clearFilter = () => setInputValue('');
 
   const groups = (list) => {
-    let listByGroups = [[], [], [], []];
+    const listByGroups = [[], [], [], []];
 
     const today = new Date();
 
     list.forEach((element) => {
-      if (element.data().lastEstimate < 7 && element.data().lastEstimate > 0)
-        listByGroups[0].push(element);
-      if (element.data().lastEstimate >= 7 && element.data().lastEstimate <= 30)
-        listByGroups[1].push(element);
-      if (element.data().lastEstimate > 30) listByGroups[2].push(element);
-      if (
-        element.data().lastEstimate === 0 &&
-        today - element.data().lastDate > element.data().lastEstimate * 2
-      )
+      const lastDate = new Date(element.data().lastDate.toDate());
+      const isInactive =
+        Math.round((today - lastDate) / (1000 * 60 * 60 * 24)) >=
+        element.data().lastEstimate * 2;
+      if (element.data().lastEstimate === 0 || isInactive)
         listByGroups[3].push(element);
+      if (
+        element.data().lastEstimate < 7 &&
+        element.data().lastEstimate > 0 &&
+        !isInactive
+      )
+        listByGroups[0].push(element);
+      if (
+        element.data().lastEstimate >= 7 &&
+        element.data().lastEstimate <= 30 &&
+        !isInactive
+      )
+        listByGroups[1].push(element);
+      if (element.data().lastEstimate > 30 && !isInactive)
+        listByGroups[2].push(element);
     });
 
-    console.log('listByGroups', listByGroups);
-
     return listByGroups;
+  };
+
+  const getNameGroup = (indexGroup) => {
+    switch (indexGroup) {
+      case 0:
+        return 'Soon';
+      case 1:
+        return 'Kind of soon';
+      case 2:
+        return 'Not soon';
+      case 3:
+        return 'Inactive';
+      default:
+        break;
+    }
   };
 
   return (
@@ -114,7 +138,11 @@ const List = () => {
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
             ).map((group, indexGroup) =>
               group.map((doc) => (
-                <li key={doc.id} className={`group-${indexGroup}`}>
+                <li
+                  key={doc.id}
+                  className={`group-${indexGroup}`}
+                  aria-label={getNameGroup(indexGroup)}
+                >
                   <input
                     type="checkbox"
                     checked={has24HoursPassed(doc.data().lastDate)}
@@ -129,7 +157,8 @@ const List = () => {
                     }
                   />
                   {doc.data().name}
-                  {doc.data().lastEstimate}
+                  {/* in case you wanna test it */}
+                  {/* {doc.data().lastEstimate}   */}
                 </li>
               )),
             )}
