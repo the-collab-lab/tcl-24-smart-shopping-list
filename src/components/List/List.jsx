@@ -76,10 +76,13 @@ const List = () => {
     const today = new Date();
 
     list.forEach((element) => {
-      const lastDate = new Date(element.data().lastDate.toDate());
-      const isInactive =
-        Math.round((today - lastDate) / (1000 * 60 * 60 * 24)) >=
-        element.data().lastEstimate * 2;
+      const isInactive = element.data().lastDate
+        ? Math.round(
+            (today - new Date(element.data().lastDate.toDate())) /
+              (1000 * 60 * 60 * 24),
+          ) >=
+          element.data().lastEstimate * 2
+        : true;
       if (element.data().lastEstimate === 0 || isInactive)
         listByGroups[3].push(element);
       if (
