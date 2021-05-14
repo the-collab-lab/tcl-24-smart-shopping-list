@@ -76,29 +76,20 @@ const List = () => {
     const today = new Date();
 
     list.forEach((element) => {
-      const isInactive = element.data().lastDate
+      const { lastDate, lastEstimate } = element.data();
+
+      const isInactive = lastDate
         ? Math.round(
-            (today - new Date(element.data().lastDate.toDate())) /
-              (1000 * 60 * 60 * 24),
+            (today - new Date(lastDate.toDate())) / (1000 * 60 * 60 * 24),
           ) >=
-          element.data().lastEstimate * 2
+          lastEstimate * 2
         : true;
-      if (element.data().lastEstimate === 0 || isInactive)
-        listByGroups[3].push(element);
-      if (
-        element.data().lastEstimate < 7 &&
-        element.data().lastEstimate > 0 &&
-        !isInactive
-      )
+      if (lastEstimate === 0 || isInactive) listByGroups[3].push(element);
+      if (lastEstimate < 7 && lastEstimate > 0 && !isInactive)
         listByGroups[0].push(element);
-      if (
-        element.data().lastEstimate >= 7 &&
-        element.data().lastEstimate <= 30 &&
-        !isInactive
-      )
+      if (lastEstimate >= 7 && lastEstimate <= 30 && !isInactive)
         listByGroups[1].push(element);
-      if (element.data().lastEstimate > 30 && !isInactive)
-        listByGroups[2].push(element);
+      if (lastEstimate > 30 && !isInactive) listByGroups[2].push(element);
     });
 
     return listByGroups;
