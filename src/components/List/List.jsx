@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
 import useNotification from '../../hooks/useNotification';
@@ -74,24 +74,27 @@ const List = () => {
 
   const clearFilter = () => setInputValue('');
 
-  const handleDelete = (id) => {
-    const clear = () => {
-      clearTimeout(timeSpecial);
-    };
+  const timeoutId = useRef();
 
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) clearTimeout(timeoutId.current);
+    };
+  }, []);
+
+  const handleDelete = (id) => {
     if (window.confirm('are you sure to delete the item?')) {
       setLoad('Removing element...');
       remove(token, id)
         .then(() => {
           setLoad('');
-          setSuccess('Document successfully deleted!');
+          setSuccess('Element successfully deleted!');
         })
-        .catch((err) => setError('Error removing document: ', err));
+        .catch((err) => setError('Error removing element: ', err));
     }
-    const timeSpecial = setTimeout(() => {
+    timeoutId.current = setTimeout(() => {
       setSuccess('');
       setError('');
-      clear();
     }, 3000);
   };
 
@@ -135,7 +138,10 @@ const List = () => {
                     }
                   />
                   {doc.data().name}
-                  <button onClick={() => handleDelete(doc.id)}>
+                  <button
+                    onClick={() => handleDelete(doc.id)}
+                    aria-label="Delete Item"
+                  >
                     <i className="fas fa-trash"></i>
                   </button>
                 </li>
