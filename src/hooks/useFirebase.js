@@ -15,7 +15,8 @@ export const useFirebase = () => {
   const update = (token, id, value) =>
     db.doc(token).collection('items').doc(id).update(value);
 
-  const remove = (id) => db.doc(id).delete();
+  const remove = (token, id) =>
+    db.doc(token).collection('items').doc(id).delete();
 
   return {
     getAll,

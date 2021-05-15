@@ -233,13 +233,13 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"/node_modules/@firebase/firestore/dist/esm5/prebuilt-9a1b1ae6-c205ad6b.js": {
+	"/node_modules/@firebase/firestore/dist/esm5/prebuilt-4888bff0-430c65bc.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 1,
-		"oAP": "/node_modules/@firebase/firestore/dist/esm5/prebuilt-9a1b1ae6-c205ad6b-min.js",
+		"oAP": "/node_modules/@firebase/firestore/dist/esm5/prebuilt-4888bff0-430c65bc-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -321,6 +321,50 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"/node_modules/history/esm/history.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/history/esm/history-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/mini-create-react-context/dist/esm/index.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/mini-create-react-context/dist/esm/index-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/prop-types/index.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/prop-types/index-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"/node_modules/react-dom/index.js": {
 		"bF": 0,
 		"ft": 64,
@@ -343,6 +387,50 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"/node_modules/react-router-dom/esm/react-router-dom.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/react-router-dom/esm/react-router-dom-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/react-router/esm/react-router.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/react-router/esm/react-router-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/react-router/node_modules/path-to-regexp/index.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/react-router/node_modules/path-to-regexp/index-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/react-router/node_modules/react-is/index.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/react-router/node_modules/react-is/index-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"/node_modules/react/index.js": {
 		"bF": 0,
 		"ft": 64,
@@ -350,6 +438,50 @@
 		"mi": 1,
 		"oA": 1,
 		"oAP": "/node_modules/react/index-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/resolve-pathname/esm/resolve-pathname.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/resolve-pathname/esm/resolve-pathname-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/tiny-invariant/dist/tiny-invariant.esm.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/tiny-invariant/dist/tiny-invariant.esm-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/tiny-warning/dist/tiny-warning.esm.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/tiny-warning/dist/tiny-warning.esm-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/node_modules/value-equal/esm/value-equal.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/value-equal/esm/value-equal-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -753,13 +885,121 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"/src/components/Data.jsx": {
+	"/src/components/AddItem/AddItem.jsx": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/src/components/Data-min.js",
+		"oAP": "/src/components/AddItem/AddItem-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/components/AddItem/addItems.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/src/components/AddItem/addItems-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/src/components/Form/Form.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/src/components/Form/Form-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/components/Home/Home.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/src/components/Home/Home-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/components/List/List.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/src/components/List/List-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/components/NavBar/NavBar.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/src/components/NavBar/NavBar-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/components/NavBar/navBarStyle.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/src/components/NavBar/navBarStyle-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/src/components/ProtectedRoute/ProtectedRoute.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/src/components/ProtectedRoute/ProtectedRoute-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/hooks/useFirebase.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/src/hooks/useFirebase-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/hooks/useForm.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/src/hooks/useForm-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/src/hooks/useNotification.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/src/hooks/useNotification-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -790,7 +1030,7 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "/src/lib/estimates-min.js",
 		"oF": 0,
 		"sC": 3,
@@ -812,7 +1052,7 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "/src/lib/tokens-min.js",
 		"oF": 0,
 		"sC": 3,

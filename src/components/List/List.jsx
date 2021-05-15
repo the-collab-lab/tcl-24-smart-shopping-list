@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
+import useNotification from '../../hooks/useNotification';
 
 import calculateEstimate from '../../lib/estimates.js';
 
@@ -9,7 +10,7 @@ import './list.css';
 const List = () => {
   const token = localStorage.getItem('token');
 
-  const { getAll, update } = useFirebase();
+  const { getAll, update, remove } = useFirebase();
 
   const firebasePath = getAll()
     .doc(token)
@@ -18,6 +19,15 @@ const List = () => {
     .orderBy('name');
 
   const [value, loading, error] = useCollection(firebasePath);
+
+  const {
+    success,
+    error: errorDelete,
+    setSuccess,
+    setError,
+    load,
+    setLoad,
+  } = useNotification();
 
   const [inputValue, setInputValue] = useState('');
 
@@ -70,6 +80,30 @@ const List = () => {
 
   const clearFilter = () => setInputValue('');
 
+  const timeoutId = useRef();
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) clearTimeout(timeoutId.current);
+    };
+  }, []);
+
+  const handleDelete = (id) => {
+    if (window.confirm('are you sure to delete the item?')) {
+      setLoad('Removing element...');
+      remove(token, id)
+        .then(() => {
+          setLoad('');
+          setSuccess('Element successfully deleted!');
+        })
+        .catch((err) => setError('Error removing element: ', err));
+    }
+    timeoutId.current = setTimeout(() => {
+      setSuccess('');
+      setError('');
+    }, 3000);
+  };
+
   const groups = (list) => {
     const groupsDictionary = {
       Soon: [],
@@ -121,6 +155,10 @@ const List = () => {
           <input value={inputValue} onChange={handleInputChange} />
           {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
 
+          {load && <p>{load}</p>}
+          {errorDelete && <p>{errorDelete}</p>}
+          {success && <p>{success}</p>}
+
           <ul>
             {groups(
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
@@ -147,6 +185,12 @@ const List = () => {
                   {doc.data().name}
                   {/* in case you wanna test it */}
                   {/* {doc.data().lastEstimate} */}
+                  <button
+                    onClick={() => handleDelete(doc.id)}
+                    aria-label="Delete Item"
+                  >
+                    <i className="fas fa-trash"></i>
+                  </button>
                 </li>
               )),
             )}
