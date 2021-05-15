@@ -4,12 +4,18 @@ import { useFirebase } from '../../hooks/useFirebase';
 
 import calculateEstimate from '../../lib/estimates.js';
 
+import './list.css';
+
 const List = () => {
   const token = localStorage.getItem('token');
 
   const { getAll, update } = useFirebase();
 
-  const firebasePath = getAll().doc(token).collection('items');
+  const firebasePath = getAll()
+    .doc(token)
+    .collection('items')
+    .orderBy('lastEstimate')
+    .orderBy('name');
 
   const [value, loading, error] = useCollection(firebasePath);
 
@@ -64,6 +70,40 @@ const List = () => {
 
   const clearFilter = () => setInputValue('');
 
+  const groups = (list) => {
+    const groupsDictionary = {
+      Soon: [],
+      'Kind of Soon': [],
+      'Not Soon': [],
+      Inactive: [],
+    };
+
+    const today = new Date();
+
+    list.forEach((element) => {
+      const { lastDate, lastEstimate } = element.data();
+
+      const isInactive = lastDate
+        ? Math.round(
+            (today - new Date(lastDate.toDate())) / (1000 * 60 * 60 * 24),
+          ) >=
+          lastEstimate * 2
+        : true;
+      if (lastEstimate === 0 || isInactive)
+        groupsDictionary['Inactive'].push(element);
+      if (lastEstimate < 7 && lastEstimate > 0 && !isInactive)
+        groupsDictionary['Soon'].push(element);
+      if (lastEstimate >= 7 && lastEstimate <= 30 && !isInactive)
+        groupsDictionary['Kind of Soon'].push(element);
+      if (lastEstimate > 30 && !isInactive)
+        groupsDictionary['Not Soon'].push(element);
+    });
+
+    const listByGroups = Object.entries(groupsDictionary);
+
+    return listByGroups;
+  };
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -82,10 +122,15 @@ const List = () => {
           {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
 
           <ul>
-            {value.docs
-              .filter((doc) => doc.data().name.includes(inputValue))
-              .map((doc) => (
-                <li key={doc.id}>
+            {groups(
+              value.docs.filter((doc) => doc.data().name.includes(inputValue)),
+            ).map(([key, group], indexGroup) =>
+              group.map((doc) => (
+                <li
+                  key={doc.id}
+                  className={`group-${indexGroup}`}
+                  aria-label={key}
+                >
                   <input
                     type="checkbox"
                     checked={has24HoursPassed(doc.data().lastDate)}
@@ -100,8 +145,11 @@ const List = () => {
                     }
                   />
                   {doc.data().name}
+                  {/* in case you wanna test it */}
+                  {/* {doc.data().lastEstimate} */}
                 </li>
-              ))}
+              )),
+            )}
           </ul>
         </>
       )}
