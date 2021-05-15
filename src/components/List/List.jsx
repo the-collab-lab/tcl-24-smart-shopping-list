@@ -71,7 +71,12 @@ const List = () => {
   const clearFilter = () => setInputValue('');
 
   const groups = (list) => {
-    const listByGroups = [[], [], [], []];
+    const groupsDictionary = {
+      Soon: [],
+      'Kind of Soon': [],
+      'Not Soon': [],
+      Inactive: [],
+    };
 
     const today = new Date();
 
@@ -84,30 +89,19 @@ const List = () => {
           ) >=
           lastEstimate * 2
         : true;
-      if (lastEstimate === 0 || isInactive) listByGroups[3].push(element);
+      if (lastEstimate === 0 || isInactive)
+        groupsDictionary['Inactive'].push(element);
       if (lastEstimate < 7 && lastEstimate > 0 && !isInactive)
-        listByGroups[0].push(element);
+        groupsDictionary['Soon'].push(element);
       if (lastEstimate >= 7 && lastEstimate <= 30 && !isInactive)
-        listByGroups[1].push(element);
-      if (lastEstimate > 30 && !isInactive) listByGroups[2].push(element);
+        groupsDictionary['Kind of Soon'].push(element);
+      if (lastEstimate > 30 && !isInactive)
+        groupsDictionary['Not Soon'].push(element);
     });
 
-    return listByGroups;
-  };
+    const listByGroups = Object.entries(groupsDictionary);
 
-  const getNameGroup = (indexGroup) => {
-    switch (indexGroup) {
-      case 0:
-        return 'Soon';
-      case 1:
-        return 'Kind of soon';
-      case 2:
-        return 'Not soon';
-      case 3:
-        return 'Inactive';
-      default:
-        break;
-    }
+    return listByGroups;
   };
 
   return (
@@ -130,12 +124,12 @@ const List = () => {
           <ul>
             {groups(
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
-            ).map((group, indexGroup) =>
+            ).map(([key, group], indexGroup) =>
               group.map((doc) => (
                 <li
                   key={doc.id}
                   className={`group-${indexGroup}`}
-                  aria-label={getNameGroup(indexGroup)}
+                  aria-label={key}
                 >
                   <input
                     type="checkbox"
@@ -152,7 +146,7 @@ const List = () => {
                   />
                   {doc.data().name}
                   {/* in case you wanna test it */}
-                  {/* {doc.data().lastEstimate}   */}
+                  {/* {doc.data().lastEstimate} */}
                 </li>
               )),
             )}
