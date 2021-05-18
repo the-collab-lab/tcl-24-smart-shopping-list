@@ -8,9 +8,12 @@ import NavBar from './components/NavBar/NavBar.jsx';
 import Home from './components/Home/Home';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
+import { GlobalStyle } from '../src/components/Style/Global.Style';
+
 function App() {
   return (
     <Router>
+      <GlobalStyle />
       <div className="App">
         <Switch>
           <ProtectedRoute path="/list">
