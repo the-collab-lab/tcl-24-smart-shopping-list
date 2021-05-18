@@ -4,6 +4,8 @@ import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
 import useNotification from '../../hooks/useNotification';
 
+import { Button } from '../Style/Button.Style';
+
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
     token: '',
@@ -62,12 +64,14 @@ const Home = () => {
             value={values.token}
             required
           />
-          <button type="submit">Search</button>
+          <Button type="submit" primary>
+            Search
+          </Button>
         </label>
       </form>
       {error && <p>{error}</p>}
       {load && <p>{load}</p>}
-      <button onClick={handleClick}>New List</button>
+      <Button onClick={handleClick}>New List</Button>
     </div>
   );
 };
