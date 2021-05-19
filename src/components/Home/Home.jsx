@@ -5,6 +5,7 @@ import { useFirebase } from '../../hooks/useFirebase.js';
 import useNotification from '../../hooks/useNotification';
 
 import { Button } from '../Style/Button.Style';
+import { Input } from '../Style/Input.Style';
 
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
@@ -72,6 +73,7 @@ const Home = () => {
       {error && <p>{error}</p>}
       {load && <p>{load}</p>}
       <Button onClick={handleClick}>New List</Button>
+      <Input />
     </div>
   );
 };

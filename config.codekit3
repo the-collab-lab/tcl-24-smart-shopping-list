@@ -928,6 +928,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"/src/components/List/list.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/src/components/List/list-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"/src/components/List/List.jsx": {
 		"bF": 0,
 		"ft": 64,
