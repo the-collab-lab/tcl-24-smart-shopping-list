@@ -4,9 +4,16 @@ import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
 import useNotification from '../../hooks/useNotification';
 
-import { Button } from '../Style/Button.Style';
-import { Input } from '../Style/Input.Style';
-import { HomeContainer, Form, Notification } from './Home.style.js';
+import {
+  HomeContainer,
+  TopSection,
+  BottonSection,
+  ButtonHome,
+  Form,
+  InputHome,
+  ButtonHomeSearch,
+  Notification,
+} from './Home.style.js';
 
 import store from './Image/conifer-481.png';
 
@@ -61,39 +68,43 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <h1 className="HomeContainer-title">Smart Shooping App</h1>
+      <TopSection>
+        <h1 className="TopSection-title">Smart Shooping App</h1>
 
-      <img className="HomeContainer-image" src={store} alt="store" />
+        <img className="TopSection-image" src={store} alt="store" />
 
-      <p className="HomeContainer-label">Get started by creating a new list.</p>
+        <p className="TopSection-label">Get started by creating a new list.</p>
 
-      <Button onClick={handleClick}>Create a new list</Button>
+        <ButtonHome onClick={handleClick}>New list</ButtonHome>
+      </TopSection>
 
-      <Form onSubmit={handleSubmit}>
-        <label className="HomeContainer-Form-label">
-          <p className="HomeContainer-Form-title">
-            Join an existing shopping list.
-          </p>
-          {
-            <Input
-              type="text"
-              name="token"
-              onChange={handleInputChange}
-              value={values.token}
-              placeholder="Enter a token"
-              required
-            />
-          }
-        </label>
+      <BottonSection>
+        <Form onSubmit={handleSubmit}>
+          <label className="BottonSection-Form-label">
+            <p className="BottonSection-Form-title">
+              Join an existing shopping list.
+            </p>
+            {
+              <InputHome
+                type="text"
+                name="token"
+                onChange={handleInputChange}
+                value={values.token}
+                placeholder="Enter a token"
+                required
+              />
+            }
+          </label>
 
-        <Button type="submit" primary>
-          Search
-        </Button>
-      </Form>
-      <Notification>
-        {error && <p>{error}</p>}
-        {load && <p>{load}</p>}
-      </Notification>
+          <ButtonHomeSearch type="submit" primary>
+            <i className="fas fa-search"></i>
+          </ButtonHomeSearch>
+        </Form>
+        <Notification>
+          {error && <p>{error}</p>}
+          {load && <div className="progress-3"></div>}
+        </Notification>
+      </BottonSection>
     </HomeContainer>
   );
 };
