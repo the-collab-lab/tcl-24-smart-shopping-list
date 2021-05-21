@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home deberia renderisar 1`] = `
+<div>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      Type Your Token
+      <input
+        name="token"
+        onChange={[MockFunction]}
+        required={true}
+        type="text"
+        value=""
+      />
+      <button
+        type="submit"
+      >
+        Search
+      </button>
+    </label>
+  </form>
+  <button
+    onClick={[Function]}
+  >
+    New List
+  </button>
+</div>
+`;

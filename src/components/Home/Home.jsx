@@ -23,10 +23,12 @@ const Home = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
+          console.log('if');
           setLoad('');
           localStorage.setItem('token', values.token);
           history.push('/list');
         } else {
+          console.log('else');
           setError('The list is not found');
           setLoad('');
         }
