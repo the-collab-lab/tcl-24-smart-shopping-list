@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar Deberia renderisar 1`] = `
+<nav
+  className="nav-container"
+>
+  <NavLink
+    className="nav-link"
+    exact={true}
+    to="/list"
+  >
+    List
+  </NavLink>
+  <NavLink
+    className="nav-link"
+    exact={true}
+    to="/addItem"
+  >
+    Add Item
+  </NavLink>
+</nav>
+`;
