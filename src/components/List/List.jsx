@@ -6,7 +6,17 @@ import useNotification from '../../hooks/useNotification';
 import calculateEstimate from '../../lib/estimates.js';
 import Loader from '../Loader/Loader';
 
-import './list.css';
+import { Input } from '../Style/Input.Style';
+
+import {
+  ItemContainer,
+  ListContainer,
+  TrashIcon,
+  ItemName,
+  DeleteButton,
+  UnorderedList,
+  FilterContainer,
+} from './List.Style';
 
 const List = () => {
   const token = localStorage.getItem('token');
@@ -140,27 +150,37 @@ const List = () => {
   };
 
   return (
-    <div>
+    <ListContainer isLoading={loading}>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
 
       {value?.empty && (
         <p>
-          There aren't any items on the list yet. You can add items with the
+          There aren't any items in this list yet. You can add items with the
           "Add Item" button at the bottom!
         </p>
       )}
 
       {value && !value.empty && (
         <>
-          <input value={inputValue} onChange={handleInputChange} />
-          {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
+          <FilterContainer>
+            <Input
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Search"
+            />
+            {inputValue.length >= 1 && (
+              <button onClick={clearFilter}>
+                <i class="fas fa-times"></i>
+              </button>
+            )}
+          </FilterContainer>
 
           {load && <p>{load}</p>}
           {errorDelete && <p>{errorDelete}</p>}
           {success && <p>{success}</p>}
 
-          <ul>
+          <UnorderedList>
             {groups(
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
             ).map(([key, group], indexGroup) =>
@@ -170,35 +190,39 @@ const List = () => {
                   className={`group-${indexGroup}`}
                   aria-label={key}
                 >
-                  <input
-                    type="checkbox"
-                    checked={has24HoursPassed(doc.data().lastDate)}
-                    onChange={() =>
-                      handleCheck(
-                        doc.id,
-                        doc.data().lastDate,
-                        doc.data().time,
-                        doc.data().times,
-                        doc.data().lastEstimate,
-                      )
-                    }
-                  />
-                  {doc.data().name}
-                  {/* in case you wanna test it */}
-                  {/* {doc.data().lastEstimate} */}
-                  <button
-                    onClick={() => handleDelete(doc.id)}
-                    aria-label="Delete Item"
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
+                  <ItemContainer>
+                    <DeleteButton
+                      onClick={() => handleDelete(doc.id)}
+                      aria-label="Delete Item"
+                    >
+                      <i className="fas fa-trash fa-2x"></i>
+                    </DeleteButton>
+                    <label>
+                      <ItemName>{doc.data().name}</ItemName>
+                      <input
+                        type="checkbox"
+                        checked={has24HoursPassed(doc.data().lastDate)}
+                        onChange={() =>
+                          handleCheck(
+                            doc.id,
+                            doc.data().lastDate,
+                            doc.data().time,
+                            doc.data().times,
+                            doc.data().lastEstimate,
+                          )
+                        }
+                      />
+                    </label>
+                    {/* in case you wanna test it */}
+                    {/* {doc.data().lastEstimate} */}
+                  </ItemContainer>
                 </li>
               )),
             )}
-          </ul>
+          </UnorderedList>
         </>
       )}
-    </div>
+    </ListContainer>
   );
 };
 
