@@ -33,13 +33,14 @@ export const TopSection = styled.div`
   height: 55%;
   h1.TopSection-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3rem;
     text-transform: uppercase;
     width: 100%;
     height: 10%;
     color: ${dark};
     /* font-family: 'Bad Script', cursive; */
-    font-family: 'Libre Baskerville', serif;
+    /* font-family: 'Libre Baskerville', serif; */
+    font-family: 'Fredoka One', cursive;
   }
   img.TopSection-image {
     max-width: 100%;
