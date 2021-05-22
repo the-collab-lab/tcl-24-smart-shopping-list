@@ -69,7 +69,7 @@ const Home = () => {
   return (
     <HomeContainer>
       <TopSection>
-        <h1 className="TopSection-title">Smart Shooping App</h1>
+        <h1 className="TopSection-title">Smart Shopping App</h1>
 
         <img className="TopSection-image" src={store} alt="store" />
 

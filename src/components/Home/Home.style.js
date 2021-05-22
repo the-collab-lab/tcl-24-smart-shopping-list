@@ -40,7 +40,8 @@ export const TopSection = styled.div`
     color: ${dark};
     /* font-family: 'Bad Script', cursive; */
     /* font-family: 'Libre Baskerville', serif; */
-    font-family: 'Fredoka One', cursive;
+    /* font-family: 'Fredoka One', cursive; */
+    font-family: 'Josefin Sans', sans-serif;
   }
   img.TopSection-image {
     max-width: 100%;
