@@ -10,10 +10,18 @@ export const HomeContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-width: 375px;
   width: 100%;
   height: 90vh;
   background: ${bgApp};
+  @media (min-width: 480px) {
+    width: 420px;
+    min-width: 420px;
+    margin: auto;
+    border-radius: 2rem;
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 export const TopSection = styled.div`
@@ -25,23 +33,25 @@ export const TopSection = styled.div`
   height: 55%;
   h1.TopSection-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-transform: uppercase;
     width: 100%;
     height: 10%;
     color: ${dark};
-    font-family: 'Bad Script', cursive;
+    /* font-family: 'Bad Script', cursive; */
+    font-family: 'Libre Baskerville', serif;
   }
   img.TopSection-image {
     max-width: 100%;
     width: 20%;
     height: auto;
+    margin-top: 2%;
   }
   p.TopSection-label {
     display: flex;
     align-items: center;
     height: 10%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: ${dark};
   }
@@ -53,6 +63,12 @@ export const BottonSection = styled.div`
   background: ${dark};
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
+  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
+
+  @media (min-width: 480px) {
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
 `;
 
 export const Form = styled.form`
@@ -76,7 +92,7 @@ export const Form = styled.form`
   }
   p.BottonSection-Form-title {
     margin-bottom: 1%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: ${bgApp};
   }
@@ -95,7 +111,7 @@ export const Notification = styled.div`
   p {
     position: absolute;
     top: 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
   }
 
@@ -123,7 +139,7 @@ export const Notification = styled.div`
 
 export const ButtonHome = styled(Button)`
   background: ${secundary};
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bolder;
   text-transform: uppercase;
   color: ${bgApp};
@@ -139,7 +155,7 @@ export const InputHome = styled(Input)`
   width: 70%;
   height: 3.2rem;
   border-radius: 100px 100px 100px 100px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   background-color: #f8fdef;
   border: 0.1rem solid ${dark};
 `;

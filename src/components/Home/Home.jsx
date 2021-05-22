@@ -96,10 +96,11 @@ const Home = () => {
             }
           </label>
 
-          <ButtonHomeSearch type="submit" primary>
+          <ButtonHomeSearch type="submit" aria-label="search list" primary>
             <i className="fas fa-search"></i>
           </ButtonHomeSearch>
         </Form>
+
         <Notification>
           {error && <p>{error}</p>}
           {load && <div className="progress-3"></div>}
