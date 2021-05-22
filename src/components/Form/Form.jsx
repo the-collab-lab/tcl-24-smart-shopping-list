@@ -5,6 +5,21 @@ import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
 import useNotification from '../../hooks/useNotification';
 
+import { Button } from '../Style/Button.Style';
+import { Input } from '../Style/Input.Style';
+import {
+  FormWrapper,
+  FormStyled,
+  FormGroup,
+  Legend,
+  LabelSet,
+  LabelOption,
+  CustomRadio,
+  Info,
+  InputRadio,
+  Message,
+} from './Form.Style';
+
 export const Form = () => {
   const { error, setError, setLoad, success, setSuccess } = useNotification();
   const token = localStorage.getItem('token');
@@ -64,58 +79,62 @@ export const Form = () => {
   };
 
   return (
-    <form onSubmit={sendToFirebase} className="form-item">
-      <label htmlFor="fname">
-        Name of item:
-        <input
-          type="text"
-          name="nameItem"
-          onChange={handleInputChange}
-          value={values.nameItem}
-        />
-      </label>
+    <FormWrapper>
+      <FormStyled onSubmit={sendToFirebase}>
+        <FormGroup>
+          <label htmlFor="fname">Name of item:</label>
+          <Input
+            type="text"
+            name="nameItem"
+            onChange={handleInputChange}
+            value={values.nameItem}
+          />
+        </FormGroup>
 
-      <div>
-        <label className="form-radio-set">
-          How soon are you likely to buy it again?
-          <label>
-            <input
+        <LabelSet>
+          <Legend>How soon are you likely to buy it again?</Legend>
+          <LabelOption>
+            Soon <Info>-in the next 7 days-</Info>
+            <InputRadio
               type="radio"
               name="selectTime"
               value="7"
               checked={values.selectTime === '7'}
               onChange={handleInputChange}
             />
-            Soon (in the next 7 days)
-          </label>
-          <label>
-            <input
+            <CustomRadio></CustomRadio>
+          </LabelOption>
+          <LabelOption>
+            Kind of soon <Info>-in the next 14 days-</Info>
+            <InputRadio
               type="radio"
               name="selectTime"
               value="14"
               checked={values.selectTime === '14'}
               onChange={handleInputChange}
             />
-            Kind of soon (in the next 14 days)
-          </label>
-          <label>
-            <input
+            <CustomRadio></CustomRadio>
+          </LabelOption>
+          <LabelOption>
+            Not soon <Info>-in the next 30 days-</Info>
+            <InputRadio
               type="radio"
               name="selectTime"
               value="30"
               checked={values.selectTime === '30'}
               onChange={handleInputChange}
             />
-            Not soon (in the next 30 days)
-          </label>
-        </label>
-      </div>
+            <CustomRadio></CustomRadio>
+          </LabelOption>
+        </LabelSet>
 
-      <p>Last purchased date{values.lastDate}</p>
-      <button type="submit">Send</button>
+        <Button type="submit" primary>
+          ADD ITEM
+        </Button>
 
-      {error && <p className="form-error-msn">{error}</p>}
-      {success && <p className="form-success-msn">{success}</p>}
-    </form>
+        {error && <Message error>{error}</Message>}
+        {success && <Message>{success}</Message>}
+      </FormStyled>
+    </FormWrapper>
   );
 };
