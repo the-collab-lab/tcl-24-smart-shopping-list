@@ -11,11 +11,13 @@ import { Input } from '../Style/Input.Style';
 import {
   ItemContainer,
   ListContainer,
-  TrashIcon,
   ItemName,
   DeleteButton,
   UnorderedList,
   FilterContainer,
+  Main,
+  Additional,
+  LastPurchase,
 } from './List.Style';
 
 const List = () => {
@@ -149,6 +151,33 @@ const List = () => {
     return listByGroups;
   };
 
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const convertDate = (currentDate) => {
+    const dateOnly = currentDate.split('T');
+    const dateArray = dateOnly[0].split('-');
+    console.log(dateArray[0].split('"'));
+
+    const constructing = `${months[dateArray[1] - 1]} ${dateArray[2]} of ${
+      dateArray[0].split('"')[1]
+    }`;
+
+    return constructing;
+  };
+
   return (
     <ListContainer isLoading={loading}>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -171,7 +200,8 @@ const List = () => {
             />
             {inputValue.length >= 1 && (
               <button onClick={clearFilter}>
-                <i class="fas fa-times"></i>
+                <i class="fas fa-backspace"></i>
+                {/* <i class="fas fa-times"></i> */}
               </button>
             )}
           </FilterContainer>
@@ -187,32 +217,44 @@ const List = () => {
               group.map((doc) => (
                 <li
                   key={doc.id}
-                  className={`group-${indexGroup}`}
+                  // className={`group-${indexGroup}`}
                   aria-label={key}
                 >
-                  <ItemContainer>
-                    <DeleteButton
-                      onClick={() => handleDelete(doc.id)}
-                      aria-label="Delete Item"
-                    >
-                      <i className="fas fa-trash fa-2x"></i>
-                    </DeleteButton>
-                    <label>
-                      <ItemName>{doc.data().name}</ItemName>
-                      <input
-                        type="checkbox"
-                        checked={has24HoursPassed(doc.data().lastDate)}
-                        onChange={() =>
-                          handleCheck(
-                            doc.id,
-                            doc.data().lastDate,
-                            doc.data().time,
-                            doc.data().times,
-                            doc.data().lastEstimate,
-                          )
-                        }
-                      />
-                    </label>
+                  <ItemContainer purchase={key}>
+                    <Main>
+                      <DeleteButton
+                        onClick={() => handleDelete(doc.id)}
+                        aria-label="Delete Item"
+                      >
+                        <i className="fas fa-trash fa-2x"></i>
+                      </DeleteButton>
+                      <label>
+                        <ItemName>{doc.data().name}</ItemName>
+                        <input
+                          type="checkbox"
+                          checked={has24HoursPassed(doc.data().lastDate)}
+                          onChange={() =>
+                            handleCheck(
+                              doc.id,
+                              doc.data().lastDate,
+                              doc.data().time,
+                              doc.data().times,
+                              doc.data().lastEstimate,
+                            )
+                          }
+                        />
+                      </label>
+                    </Main>
+                    <Additional>
+                      {doc.data().lastDate && (
+                        <LastPurchase>
+                          Last purchase:
+                          {convertDate(
+                            JSON.stringify(doc.data().lastDate.toDate()),
+                          )}
+                        </LastPurchase>
+                      )}
+                    </Additional>
                     {/* in case you wanna test it */}
                     {/* {doc.data().lastEstimate} */}
                   </ItemContainer>
