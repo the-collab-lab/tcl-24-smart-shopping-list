@@ -139,7 +139,7 @@ export const Notification = styled.div`
 `;
 
 export const ButtonHome = styled(Button)`
-  background: ${secundary};
+  background: ${dark};
   font-size: 1rem;
   font-weight: bolder;
   text-transform: uppercase;
