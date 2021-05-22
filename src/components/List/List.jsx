@@ -4,6 +4,7 @@ import { useFirebase } from '../../hooks/useFirebase';
 import useNotification from '../../hooks/useNotification';
 
 import calculateEstimate from '../../lib/estimates.js';
+import Loader from '../Loader/Loader';
 
 import './list.css';
 
@@ -141,11 +142,11 @@ const List = () => {
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Loader />}
 
       {value?.empty && (
         <p>
-          There are not any item in this list yet. You can add items with the
+          There aren't any items on the list yet. You can add items with the
           "Add Item" button at the bottom!
         </p>
       )}
