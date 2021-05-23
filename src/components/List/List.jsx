@@ -6,20 +6,20 @@ import useNotification from '../../hooks/useNotification';
 import calculateEstimate from '../../lib/estimates.js';
 import Loader from '../Loader/Loader';
 
-import { Input } from '../Style/Input.Style';
-
 import {
+  NewInput,
   ItemContainer,
   ListContainer,
   ItemName,
   DeleteButton,
   UnorderedList,
   FilterContainer,
-  Main,
-  Additional,
   LastPurchase,
   NumberPurchase,
   NextDate,
+  Description,
+  Dot,
+  NewButton,
 } from './List.Style';
 
 const List = () => {
@@ -203,17 +203,28 @@ const List = () => {
       {value && !value.empty && (
         <>
           <FilterContainer>
-            <Input
+            <NewInput
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Search"
             />
             {inputValue.length >= 1 && (
-              <button onClick={clearFilter}>
+              <NewButton onClick={clearFilter}>
                 <i class="fas fa-backspace"></i>
-              </button>
+              </NewButton>
             )}
           </FilterContainer>
+
+          <Description>
+            <Dot color="#dd6450" />
+            <span>Soon</span>
+            <Dot color="#acc18a" />
+            <span>Kind Of Soon</span>
+            <Dot color="#b8a46e" />
+            <span>Not Soon</span>
+            <Dot color="#B8B8B8" />
+            <span>Inactive</span>
+          </Description>
 
           {load && <p>{load}</p>}
           {errorDelete && <p>{errorDelete}</p>}
@@ -222,11 +233,11 @@ const List = () => {
           <UnorderedList>
             {groups(
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
-            ).map(([key, group], indexGroup) =>
+            ).map(([key, group]) =>
               group.map((doc) => (
                 <li key={doc.id} aria-label={key}>
                   <ItemContainer purchase={key}>
-                    <Main>
+                    <div>
                       <DeleteButton
                         onClick={() => handleDelete(doc.id)}
                         aria-label="Delete Item"
@@ -249,8 +260,8 @@ const List = () => {
                           }
                         />
                       </label>
-                    </Main>
-                    <Additional>
+                    </div>
+                    <div>
                       {doc.data().lastDate && (
                         <>
                           <NumberPurchase>
@@ -271,7 +282,7 @@ const List = () => {
                           </NextDate>
                         </>
                       )}
-                    </Additional>
+                    </div>
                     {/* in case you wanna test it */}
                     {/* {doc.data().lastEstimate} */}
                   </ItemContainer>
