@@ -4,9 +4,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
 import useNotification from '../../hooks/useNotification';
-
 import { Button } from '../Style/Button.Style';
-import { Input } from '../Style/Input.Style';
+
 import {
   FormWrapper,
   FormStyled,
@@ -18,6 +17,8 @@ import {
   Info,
   InputRadio,
   Message,
+  BottomSection,
+  InputForm,
 } from './Form.Style';
 
 export const Form = () => {
@@ -83,7 +84,7 @@ export const Form = () => {
       <FormStyled onSubmit={sendToFirebase}>
         <FormGroup>
           <label htmlFor="fname">Name of item:</label>
-          <Input
+          <InputForm
             type="text"
             name="nameItem"
             onChange={handleInputChange}
@@ -91,49 +92,49 @@ export const Form = () => {
           />
         </FormGroup>
 
-        <LabelSet>
-          <Legend>How soon are you likely to buy it again?</Legend>
-          <LabelOption>
-            Soon <Info>-in the next 7 days-</Info>
-            <InputRadio
-              type="radio"
-              name="selectTime"
-              value="7"
-              checked={values.selectTime === '7'}
-              onChange={handleInputChange}
-            />
-            <CustomRadio></CustomRadio>
-          </LabelOption>
-          <LabelOption>
-            Kind of soon <Info>-in the next 14 days-</Info>
-            <InputRadio
-              type="radio"
-              name="selectTime"
-              value="14"
-              checked={values.selectTime === '14'}
-              onChange={handleInputChange}
-            />
-            <CustomRadio></CustomRadio>
-          </LabelOption>
-          <LabelOption>
-            Not soon <Info>-in the next 30 days-</Info>
-            <InputRadio
-              type="radio"
-              name="selectTime"
-              value="30"
-              checked={values.selectTime === '30'}
-              onChange={handleInputChange}
-            />
-            <CustomRadio></CustomRadio>
-          </LabelOption>
-        </LabelSet>
+        <BottomSection>
+          <LabelSet>
+            <Legend>How soon are you likely to buy it again?</Legend>
+            <LabelOption>
+              Soon <Info>-in the next 7 days-</Info>
+              <InputRadio
+                type="radio"
+                name="selectTime"
+                value="7"
+                checked={values.selectTime === '7'}
+                onChange={handleInputChange}
+              />
+              <CustomRadio></CustomRadio>
+            </LabelOption>
+            <LabelOption>
+              Kind of soon <Info>-in the next 14 days-</Info>
+              <InputRadio
+                type="radio"
+                name="selectTime"
+                value="14"
+                checked={values.selectTime === '14'}
+                onChange={handleInputChange}
+              />
+              <CustomRadio></CustomRadio>
+            </LabelOption>
+            <LabelOption>
+              Not soon <Info>-in the next 30 days-</Info>
+              <InputRadio
+                type="radio"
+                name="selectTime"
+                value="30"
+                checked={values.selectTime === '30'}
+                onChange={handleInputChange}
+              />
+              <CustomRadio></CustomRadio>
+            </LabelOption>
+          </LabelSet>
 
-        <Button type="submit" primary>
-          ADD ITEM
-        </Button>
+          <Button type="submit">ADD ITEM</Button>
 
-        {error && <Message error>{error}</Message>}
-        {success && <Message>{success}</Message>}
+          {error && <Message error>{error}</Message>}
+          {success && <Message>{success}</Message>}
+        </BottomSection>
       </FormStyled>
     </FormWrapper>
   );
