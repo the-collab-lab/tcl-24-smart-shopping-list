@@ -18,6 +18,8 @@ import {
   Main,
   Additional,
   LastPurchase,
+  NumberPurchase,
+  NextDate,
 } from './List.Style';
 
 const List = () => {
@@ -169,13 +171,21 @@ const List = () => {
   const convertDate = (currentDate) => {
     const dateOnly = currentDate.split('T');
     const dateArray = dateOnly[0].split('-');
-    console.log(dateArray[0].split('"'));
-
     const constructing = `${months[dateArray[1] - 1]} ${dateArray[2]} of ${
       dateArray[0].split('"')[1]
     }`;
 
     return constructing;
+  };
+
+  const nextPurchase = (currentDate, lastEstimate) => {
+    const next = new Date(currentDate);
+    next.setDate(next.getDate() + lastEstimate);
+    const newDateString = next.toDateString();
+    const splitting = newDateString.split(' ');
+    const final = `${splitting[1]} ${splitting[2]} of ${splitting[3]}`;
+
+    return final;
   };
 
   return (
@@ -201,7 +211,6 @@ const List = () => {
             {inputValue.length >= 1 && (
               <button onClick={clearFilter}>
                 <i class="fas fa-backspace"></i>
-                {/* <i class="fas fa-times"></i> */}
               </button>
             )}
           </FilterContainer>
@@ -215,11 +224,7 @@ const List = () => {
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
             ).map(([key, group], indexGroup) =>
               group.map((doc) => (
-                <li
-                  key={doc.id}
-                  // className={`group-${indexGroup}`}
-                  aria-label={key}
-                >
+                <li key={doc.id} aria-label={key}>
                   <ItemContainer purchase={key}>
                     <Main>
                       <DeleteButton
@@ -247,12 +252,24 @@ const List = () => {
                     </Main>
                     <Additional>
                       {doc.data().lastDate && (
-                        <LastPurchase>
-                          Last purchase:
-                          {convertDate(
-                            JSON.stringify(doc.data().lastDate.toDate()),
-                          )}
-                        </LastPurchase>
+                        <>
+                          <NumberPurchase>
+                            Number of purchases: {doc.data().times}
+                          </NumberPurchase>
+                          <LastPurchase>
+                            Last purchase:{' '}
+                            {convertDate(
+                              JSON.stringify(doc.data().lastDate.toDate()),
+                            )}
+                          </LastPurchase>
+                          <NextDate>
+                            Next purchase:{' '}
+                            {nextPurchase(
+                              doc.data().lastDate.toDate(),
+                              doc.data().lastEstimate,
+                            )}
+                          </NextDate>
+                        </>
                       )}
                     </Additional>
                     {/* in case you wanna test it */}

@@ -86,3 +86,13 @@ export const LastPurchase = styled.p`
   font-size: 1.6rem;
   margin: 1rem 0;
 `;
+
+export const NumberPurchase = styled.p`
+  font-size: 1.6rem;
+  margin: 1rem 0;
+`;
+
+export const NextDate = styled.p`
+  font-size: 1.6rem;
+  margin: 1rem 0;
+`;
