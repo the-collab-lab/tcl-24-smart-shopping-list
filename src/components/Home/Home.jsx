@@ -58,6 +58,7 @@ const Home = () => {
           <input
             type="text"
             name="token"
+            data-testid="input"
             onChange={handleInputChange}
             value={values.token}
             required
