@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
+import { colorPalet } from '../Style/Color.palette.js';
 import { Input } from '../Style/Input.Style';
+
+const { primary, secundary, bgApp, active, dark, bg } = colorPalet;
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -19,7 +22,7 @@ export const FormStyled = styled.form`
   margin: auto;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 2rem;
-  background: #605b56;
+  background: ${dark};
   text-align: center;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
 `;
@@ -30,12 +33,10 @@ export const FormGroup = styled.div`
   margin: auto;
   width: 80%;
   text-align: center;
-  background: #605b56;
 
   @media (min-width: 480px) {
     flex-direction: row;
     justify-content: center;
-    margin-bottom: 1rem;
   }
 
   label {
@@ -53,13 +54,13 @@ export const FormGroup = styled.div`
 
 export const Legend = styled.strong`
   font-size: 1.6rem;
-  color: #605b56;
+  color: ${dark};
 `;
 
 export const BottomSection = styled.div`
   width: 100%;
   height: 80%;
-  background: #f2fbe0;
+  background: ${bgApp};
   border-top-right-radius: 2rem;
   border-top-left-radius: 2rem;
   border-bottom-left-radius: 2rem;
@@ -79,12 +80,12 @@ export const LabelSet = styled.label`
   align-items: flex-start;
   width: 80%;
   margin: 2rem auto;
-  background: #f5f5f4;
-  background: #f2fbe0;
+  background: ${bgApp};
   border-radius: 2rem;
 
   @media (min-width: 480px) {
     margin: 4rem auto;
+    width: 70%;
   }
 `;
 
@@ -105,7 +106,7 @@ export const LabelOption = styled.label`
   color: black;
 
   &:hover {
-    background-color: #dafeb7;
+    background: ${active};
     color: black;
     font-weight: bold;
   }
@@ -128,14 +129,14 @@ export const CustomRadio = styled.span`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background-color: #acc18a;
+    background: ${primary};
   }
 `;
 
 export const InputRadio = styled.input`
   display: none;
   &:checked ~ ${CustomRadio} {
-    border: 0.2rem solid #acc18a;
+    border: 0.2rem solid ${primary};
     transition: all 0.25s ease-in-out;
   }
   &:checked ~ ${CustomRadio}:after {
@@ -145,7 +146,7 @@ export const InputRadio = styled.input`
 
 export const Info = styled.span`
   margin-left: 0.1rem;
-  color: #605b56;
+  color: ${dark};
   font-size: 1.2rem;
 
   &:hover {
@@ -178,10 +179,11 @@ export const InputForm = styled(Input)`
   font-size: 1.6rem;
   background-color: #f8fdef;
   border: 0.1rem solid;
-  border-color: #605b56;
+  border-color: ${dark};
   align-self: center;
 
   @media (min-width: 480px) {
     align-self: start;
+    width: 55%;
   }
 `;
