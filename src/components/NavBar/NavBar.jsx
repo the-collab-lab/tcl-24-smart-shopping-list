@@ -1,16 +1,22 @@
 import { NavLink } from 'react-router-dom';
 
+import { NavBarContainer } from './NavBar.style.js';
+
 import './navBarStyle.css';
 
 const NavBar = () => (
-  <nav className="nav-container">
-    <NavLink className="nav-link" exact to="/list">
-      List
-    </NavLink>
-    <NavLink className="nav-link" exact to="/addItem">
-      Add Item
-    </NavLink>
-  </nav>
+  <NavBarContainer className="nav-container">
+    <div>
+      <NavLink className="nav-link" exact to="/list">
+        <i className="fas fa-list-ul"></i>
+        <span>List</span>
+      </NavLink>
+      <NavLink className="nav-link" exact to="/addItem">
+        <i className="fas fa-plus"></i>
+        <span>Add item</span>
+      </NavLink>
+    </div>
+  </NavBarContainer>
 );
 
 export default NavBar;

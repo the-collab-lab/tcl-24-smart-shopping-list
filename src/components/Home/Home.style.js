@@ -20,6 +20,7 @@ export const HomeContainer = styled.section`
     min-width: 420px;
     margin: auto;
     border-radius: 2rem;
+    height: 80vh;
     box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
   }
 `;
@@ -66,7 +67,6 @@ export const BottonSection = styled.div`
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
-
   @media (min-width: 480px) {
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
