@@ -12,6 +12,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <NavBar />
         <Switch>
           <ProtectedRoute path="/list">
             <List />
@@ -23,7 +24,6 @@ function App() {
             <Home />
           </Route>
         </Switch>
-        <NavBar />
       </div>
     </Router>
   );
