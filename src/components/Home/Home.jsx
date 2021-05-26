@@ -4,8 +4,18 @@ import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
 import useNotification from '../../hooks/useNotification';
 
-import { Button } from '../Style/Button.Style';
-import { Input } from '../Style/Input.Style';
+import {
+  HomeContainer,
+  TopSection,
+  BottonSection,
+  ButtonHome,
+  Form,
+  InputHome,
+  ButtonHomeSearch,
+  Notification,
+} from './Home.style.js';
+
+import store from './Image/conifer-481.png';
 
 const Home = () => {
   const [values, handleInputChange, setValues] = useForm({
@@ -32,6 +42,9 @@ const Home = () => {
         } else {
           setError('The list is not found');
           setLoad('');
+          setTimeout(() => {
+            setError('');
+          }, 2000);
         }
       })
       .catch((error) => {
@@ -54,27 +67,46 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Type Your Token
-          <input
-            type="text"
-            name="token"
-            onChange={handleInputChange}
-            value={values.token}
-            required
-          />
-          <Button type="submit" primary>
-            Search
-          </Button>
-        </label>
-      </form>
-      {error && <p>{error}</p>}
-      {load && <p>{load}</p>}
-      <Button onClick={handleClick}>New List</Button>
-      <Input />
-    </div>
+    <HomeContainer>
+      <TopSection>
+        <h1 className="TopSection-title">Smart Shopping App</h1>
+
+        <img className="TopSection-image" src={store} alt="store" />
+
+        <p className="TopSection-label">Get started by creating a new list.</p>
+
+        <ButtonHome onClick={handleClick}>New list</ButtonHome>
+      </TopSection>
+
+      <BottonSection>
+        <Form onSubmit={handleSubmit}>
+          <label className="BottonSection-Form-label">
+            <p className="BottonSection-Form-title">
+              Join an existing shopping list.
+            </p>
+            {
+              <InputHome
+                type="text"
+                name="token"
+                onChange={handleInputChange}
+                value={values.token}
+                placeholder="Enter a token"
+                required
+              />
+            }
+          </label>
+
+          <ButtonHomeSearch type="submit" aria-label="search list" primary>
+            <i className="fas fa-search"></i>
+          </ButtonHomeSearch>
+        </Form>
+
+        <Notification>
+          {error && <p>{error}</p>}
+          {load && <div className="progress-3"></div>}
+        </Notification>
+      </BottonSection>
+    </HomeContainer>
   );
 };
 

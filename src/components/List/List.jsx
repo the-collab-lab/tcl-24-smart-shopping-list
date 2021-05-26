@@ -4,8 +4,28 @@ import { useFirebase } from '../../hooks/useFirebase';
 import useNotification from '../../hooks/useNotification';
 
 import calculateEstimate from '../../lib/estimates.js';
+import Loader from '../Loader/Loader';
 
-import './list.css';
+import {
+  NewInput,
+  ItemContainer,
+  ListContainer,
+  ItemName,
+  DeleteButton,
+  UnorderedList,
+  FilterContainer,
+  LastPurchase,
+  NumberPurchase,
+  NextDate,
+  Description,
+  Dot,
+  NewButton,
+  CheckboxContainer,
+  HiddenCheckbox,
+  StyledCheckbox,
+  Icon,
+  EditDeleteContainer,
+} from './List.Style';
 
 const List = () => {
   const token = localStorage.getItem('token');
@@ -138,66 +158,154 @@ const List = () => {
     return listByGroups;
   };
 
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const convertDate = (currentDate) => {
+    const dateOnly = currentDate.split('T');
+    const dateArray = dateOnly[0].split('-');
+    const constructing = `${months[dateArray[1] - 1]} ${dateArray[2]} of ${
+      dateArray[0].split('"')[1]
+    }`;
+
+    return constructing;
+  };
+
+  const nextPurchase = (currentDate, lastEstimate) => {
+    const next = new Date(currentDate);
+    next.setDate(next.getDate() + lastEstimate);
+    const newDateString = next.toDateString();
+    const splitting = newDateString.split(' ');
+    const final = `${splitting[1]} ${splitting[2]} of ${splitting[3]}`;
+
+    return final;
+  };
+
   return (
-    <div>
+    <ListContainer isLoading={loading}>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Loader />}
 
       {value?.empty && (
         <p>
-          There are not any item in this list yet. You can add items with the
+          There aren't any items in this list yet. You can add items with the
           "Add Item" button at the bottom!
         </p>
       )}
 
       {value && !value.empty && (
         <>
-          <input value={inputValue} onChange={handleInputChange} />
-          {inputValue.length >= 1 && <button onClick={clearFilter}>X</button>}
+          <FilterContainer>
+            <NewInput
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Search"
+            />
+            {inputValue.length >= 1 && (
+              <NewButton onClick={clearFilter}>
+                <i class="fas fa-backspace"></i>
+              </NewButton>
+            )}
+          </FilterContainer>
+
+          <Description>
+            <Dot color="#dd6450" />
+            <span>Soon</span>
+            <Dot color="#acc18a" />
+            <span>Kind Of Soon</span>
+            <Dot color="#b8a46e" />
+            <span>Not Soon</span>
+            <Dot color="#B8B8B8" />
+            <span>Inactive</span>
+          </Description>
 
           {load && <p>{load}</p>}
           {errorDelete && <p>{errorDelete}</p>}
           {success && <p>{success}</p>}
 
-          <ul>
+          <UnorderedList>
             {groups(
               value.docs.filter((doc) => doc.data().name.includes(inputValue)),
-            ).map(([key, group], indexGroup) =>
+            ).map(([key, group]) =>
               group.map((doc) => (
-                <li
-                  key={doc.id}
-                  className={`group-${indexGroup}`}
-                  aria-label={key}
-                >
-                  <input
-                    type="checkbox"
-                    checked={has24HoursPassed(doc.data().lastDate)}
-                    onChange={() =>
-                      handleCheck(
-                        doc.id,
-                        doc.data().lastDate,
-                        doc.data().time,
-                        doc.data().times,
-                        doc.data().lastEstimate,
-                      )
-                    }
-                  />
-                  {doc.data().name}
-                  {/* in case you wanna test it */}
-                  {/* {doc.data().lastEstimate} */}
-                  <button
-                    onClick={() => handleDelete(doc.id)}
-                    aria-label="Delete Item"
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
+                <li key={doc.id} aria-label={key}>
+                  <ItemContainer purchase={key}>
+                    <EditDeleteContainer>
+                      <DeleteButton
+                        onClick={() => handleDelete(doc.id)}
+                        aria-label="Delete Item"
+                      >
+                        <i className="fas fa-trash fa-2x"></i>
+                      </DeleteButton>
+                      <label>
+                        <CheckboxContainer>
+                          <HiddenCheckbox
+                            checked={has24HoursPassed(doc.data().lastDate)}
+                            onChange={() =>
+                              handleCheck(
+                                doc.id,
+                                doc.data().lastDate,
+                                doc.data().time,
+                                doc.data().times,
+                                doc.data().lastEstimate,
+                              )
+                            }
+                          />
+                          <StyledCheckbox
+                            checked={has24HoursPassed(doc.data().lastDate)}
+                          >
+                            <Icon viewBox="0 0 24 24">
+                              <polyline points="20 6 9 17 4 12" />
+                            </Icon>
+                          </StyledCheckbox>
+                        </CheckboxContainer>
+                        <ItemName>{doc.data().name}</ItemName>
+                      </label>
+                    </EditDeleteContainer>
+                    <div>
+                      {doc.data().lastDate && (
+                        <>
+                          <NumberPurchase>
+                            Number of purchases: {doc.data().times}
+                          </NumberPurchase>
+                          <LastPurchase>
+                            Last purchase:{' '}
+                            {convertDate(
+                              JSON.stringify(doc.data().lastDate.toDate()),
+                            )}
+                          </LastPurchase>
+                          <NextDate>
+                            Next purchase:{' '}
+                            {nextPurchase(
+                              doc.data().lastDate.toDate(),
+                              doc.data().lastEstimate,
+                            )}
+                          </NextDate>
+                        </>
+                      )}
+                    </div>
+                    {/* in case you wanna test it */}
+                    {/* {doc.data().lastEstimate} */}
+                  </ItemContainer>
                 </li>
               )),
             )}
-          </ul>
+          </UnorderedList>
         </>
       )}
-    </div>
+    </ListContainer>
   );
 };
 
