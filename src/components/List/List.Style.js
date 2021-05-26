@@ -84,24 +84,34 @@ export const ItemContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 15rem;
+  min-height: 16rem;
   @media only screen and ${device.lg} {
-    min-height: 19rem;
+    min-height: 20rem;
   }
 `;
 
 export const ItemName = styled.span`
   text-transform: capitalize;
   margin: 0 1rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
 `;
 
 export const DeleteButton = styled.button`
   background: none;
   border: none;
+  background-color: #f2fbe0;
+  border-radius: 4px;
   color: #605b56;
   cursor: pointer;
+  padding: 7px;
+`;
+
+export const EditDeleteContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 `;
 
 export const UnorderedList = styled.ul`
@@ -151,4 +161,45 @@ export const NewButton = styled(Button)`
   &:hover {
     background: none;
   }
+`;
+
+export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  // Hide checkbox visually but remain accessible to screen readers.
+  // Source: https://polished.js.org/docs/#hidevisually
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`;
+
+export const Icon = styled.svg`
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+`;
+
+export const StyledCheckbox = styled.div`
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: ${(props) => (props.checked ? '#605B56' : 'papayawhip')};
+  border-radius: 3px;
+  transition: all 150ms;
+  ${HiddenCheckbox}:focus + & {
+    box-shadow: 0 0 0 3px pink;
+  }
+  ${Icon} {
+    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
+  }
+`;
+
+export const CheckboxContainer = styled.div`
+  display: inline-block;
+  vertical-align: middle;
 `;

@@ -20,6 +20,11 @@ import {
   Description,
   Dot,
   NewButton,
+  CheckboxContainer,
+  HiddenCheckbox,
+  StyledCheckbox,
+  Icon,
+  EditDeleteContainer,
 } from './List.Style';
 
 const List = () => {
@@ -237,7 +242,7 @@ const List = () => {
               group.map((doc) => (
                 <li key={doc.id} aria-label={key}>
                   <ItemContainer purchase={key}>
-                    <div>
+                    <EditDeleteContainer>
                       <DeleteButton
                         onClick={() => handleDelete(doc.id)}
                         aria-label="Delete Item"
@@ -245,22 +250,30 @@ const List = () => {
                         <i className="fas fa-trash fa-2x"></i>
                       </DeleteButton>
                       <label>
+                        <CheckboxContainer>
+                          <HiddenCheckbox
+                            checked={has24HoursPassed(doc.data().lastDate)}
+                            onChange={() =>
+                              handleCheck(
+                                doc.id,
+                                doc.data().lastDate,
+                                doc.data().time,
+                                doc.data().times,
+                                doc.data().lastEstimate,
+                              )
+                            }
+                          />
+                          <StyledCheckbox
+                            checked={has24HoursPassed(doc.data().lastDate)}
+                          >
+                            <Icon viewBox="0 0 24 24">
+                              <polyline points="20 6 9 17 4 12" />
+                            </Icon>
+                          </StyledCheckbox>
+                        </CheckboxContainer>
                         <ItemName>{doc.data().name}</ItemName>
-                        <input
-                          type="checkbox"
-                          checked={has24HoursPassed(doc.data().lastDate)}
-                          onChange={() =>
-                            handleCheck(
-                              doc.id,
-                              doc.data().lastDate,
-                              doc.data().time,
-                              doc.data().times,
-                              doc.data().lastEstimate,
-                            )
-                          }
-                        />
                       </label>
-                    </div>
+                    </EditDeleteContainer>
                     <div>
                       {doc.data().lastDate && (
                         <>
