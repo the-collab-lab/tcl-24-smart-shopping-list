@@ -18,7 +18,6 @@ const Home = () => {
     setLoad('Searching...');
 
     const docRef = getAll().doc(values.token);
-
     docRef
       .get()
       .then((doc) => {

@@ -1,9 +1,13 @@
-export const getMockCollection = ({ docs = [] } = {}) => {
+import { fb } from '../lib/firebase';
+
+jest.mock('../lib/firebase');
+
+export const getMockCollection = ({ docs = [], get = jest.fn() } = {}) => {
   const mockAdd = jest.fn();
   const mockUpdate = jest.fn();
   const mockDelete = jest.fn();
   const doc = jest.fn(() => ({
-    get: jest.fn(),
+    get,
     collection: () => ({
       add: mockAdd,
       doc: () => ({ update: mockUpdate, delete: mockDelete }),
@@ -12,7 +16,13 @@ export const getMockCollection = ({ docs = [] } = {}) => {
   const collection = jest.fn(() => ({
     doc,
   }));
-  return { collection, mockAdd, mockUpdate, mockDelete };
+  return { collection, mockAdd, mockUpdate, mockDelete, doc };
 };
 
-export default getMockCollection;
+const mockFirebase = ({ get } = {}) => {
+  const mock = getMockCollection({ get });
+  fb.firestore = () => ({ collection: mock.collection });
+  return mock;
+};
+
+export default mockFirebase;

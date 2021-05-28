@@ -30,4 +30,16 @@ describe('<Form/>', () => {
     expect(getByText('Send')).toBeTruthy();
     // expect(getByRole('input')).toBeTruthy();
   });
+
+  it('updates the value of the nameItem input when a user enters text into it', () => {});
+
+  it('checks the "Soon" radio input when the user clicks in it', () => {});
+
+  it('checks the "Kind of Soon" radio input when the user clicks in it', () => {});
+
+  it('checks the "Not Soon" radio input when the user clicks in it', () => {});
+
+  it('sets a new item in the database when a user submits the form', () => {});
+
+  it('shows "Item is already on the list" when the submitted item is a duplicate', () => {});
 });
