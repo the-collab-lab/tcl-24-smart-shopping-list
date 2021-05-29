@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { colorPalet } from '../Style/Color.palette.js';
+import { device } from '../Style/Breakpoints';
 import { Input } from '../Style/Input.Style';
 import { Button } from '../Style/Button.Style.js';
 
@@ -24,7 +25,7 @@ export const FormStyled = styled.form`
   background: ${dark};
   text-align: center;
 
-  @media (min-width: 480px) {
+  @media ${device.sm} {
     width: 420px;
     height: 75%;
     min-width: 420px;
@@ -52,7 +53,7 @@ export const FormGroup = styled.div`
     font-weight: bold;
     margin-bottom: 1rem;
 
-    @media (min-width: 480px) {
+    @media ${device.sm} {
       margin-right: 1.5rem;
     }
   }
@@ -73,7 +74,8 @@ export const BottomSection = styled.div`
   border-bottom-right-radius: 2rem;
 
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
-  @media (min-width: 480px) {
+
+  @media ${device.sm} {
     border-top-right-radius: 50px;
     border-top-left-radius: 50px;
   }
@@ -89,7 +91,7 @@ export const LabelSet = styled.label`
   background: ${bgApp};
   border-radius: 2rem;
 
-  @media (min-width: 480px) {
+  @media ${device.sm} {
     margin: 4rem auto;
     width: 70%;
   }
@@ -172,7 +174,7 @@ export const Message = styled.p`
   margin-bottom: 1rem;
   font-size: 1.5rem;
 
-  @media (min-width: 480px) {
+  @media ${device.sm} {
     padding: 1.25rem;
   }
 `;
@@ -188,7 +190,7 @@ export const InputForm = styled(Input)`
   border-color: ${dark};
   align-self: center;
 
-  @media (min-width: 480px) {
+  @media ${device.sm} {
     align-self: start;
     width: 55%;
   }
@@ -196,7 +198,7 @@ export const InputForm = styled(Input)`
 
 export const ButtonForm = styled(Button)`
   background: ${dark};
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bolder;
   text-transform: uppercase;
   color: ${bgApp};
