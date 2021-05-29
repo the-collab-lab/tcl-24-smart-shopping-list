@@ -4,7 +4,6 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirebase } from '../../hooks/useFirebase';
 import { useForm } from '../../hooks/useForm';
 import useNotification from '../../hooks/useNotification';
-import { Button } from '../Style/Button.Style';
 
 import {
   FormWrapper,
@@ -19,6 +18,7 @@ import {
   Message,
   BottomSection,
   InputForm,
+  ButtonForm,
 } from './Form.Style';
 
 export const Form = () => {
@@ -72,7 +72,7 @@ export const Form = () => {
 
       reset();
 
-      setSuccess('Data was send successfully');
+      setSuccess('The item has been added to the list');
       return;
     }
 
@@ -130,7 +130,7 @@ export const Form = () => {
             </LabelOption>
           </LabelSet>
 
-          <Button type="submit">ADD ITEM</Button>
+          <ButtonForm type="submit">ADD ITEM</ButtonForm>
 
           {error && <Message error>{error}</Message>}
           {success && <Message>{success}</Message>}

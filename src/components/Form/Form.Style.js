@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 import { colorPalet } from '../Style/Color.palette.js';
 import { Input } from '../Style/Input.Style';
+import { Button } from '../Style/Button.Style.js';
 
-const { primary, secundary, bgApp, active, dark, bg } = colorPalet;
+const { primary, secundary, bgApp, active, dark } = colorPalet;
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -15,16 +16,21 @@ export const FormWrapper = styled.div`
 export const FormStyled = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 75%;
-  max-width: 500px;
-  max-height: 600px;
+  min-width: 375px;
+  height: 80%;
   margin: auto;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 2rem;
   background: ${dark};
   text-align: center;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+
+  @media (min-width: 480px) {
+    width: 420px;
+    height: 75%;
+    min-width: 420px;
+    max-height: 600px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -157,7 +163,7 @@ export const Info = styled.span`
 export const Message = styled.p`
   margin: auto;
   margin-top: 1.5rem;
-  background: ${(props) => (props.error ? '#f2dede' : '#f2fbe0')};
+  background: ${(props) => (props.error ? '#f2dede' : '#f8fdef')};
   color: ${(props) => (props.error ? '#a94442' : '#3c763d')};
   font-weight: bold;
   border-radius: 2.5rem;
@@ -185,5 +191,18 @@ export const InputForm = styled(Input)`
   @media (min-width: 480px) {
     align-self: start;
     width: 55%;
+  }
+`;
+
+export const ButtonForm = styled(Button)`
+  background: ${dark};
+  font-size: 1rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  color: ${bgApp};
+  padding: 1.2rem 0.8rem;
+  &:hover {
+    background: ${secundary};
+    color: ${active};
   }
 `;
