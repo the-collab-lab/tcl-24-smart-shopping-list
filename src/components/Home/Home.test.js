@@ -14,6 +14,33 @@ it('should render the input element', () => {
   expect(input.value).toHaveLength(4);
 });
 
+it('should render the main heading correctly', () => {
+  const { getByRole } = render(<Home />);
+  const h1 = getByRole('heading');
+
+  expect(h1).toBeDefined();
+  expect(h1).toHaveTextContent('Smart Shopping App');
+});
+
+it('should render the logo image correctly', () => {
+  const { getByRole } = render(<Home />);
+  const logo = getByRole('img');
+
+  expect(logo).toBeInTheDocument();
+  expect(logo).toHaveAttribute('alt', 'store');
+});
+
+it('should render an add new list button that should work correctly', () => {
+  const { getByTestId } = render(<Home />);
+  const button = getByTestId('addList');
+
+  const handleClick = jest.fn();
+
+  expect(button).toBeDefined();
+  //   console.log(button);
+  //   expect(button).toHaveAttribute('onClick', handleClick);
+});
+
 // it('should render the button element', () => {
 //   const onSubmit = jest.fn();
 //   const { getByText, getByTestId } = render(<Home onSubmit={onSubmit} />);
