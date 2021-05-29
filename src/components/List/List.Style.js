@@ -10,10 +10,10 @@ export const ListContainer = styled.section`
   align-items: center;
   text-align: center;
   padding: 3rem 0;
-  height: ${(props) => (props.isLoading ? '100vh' : 'auto')};
   min-width: 30rem;
   width: 100%;
   background: #f2fbe0;
+  max-height: 85vh;
   @media only screen and ${device.sm} {
     width: 40rem;
     min-width: 40rem;
@@ -121,6 +121,8 @@ export const UnorderedList = styled.ul`
   grid-template-rows: 1fr;
   gap: 2.5rem 2rem;
   margin-top: 2rem;
+  /* height: 80vh; */
+  overflow: scroll;
   @media only screen and ${device.md} {
     grid-template-columns: 1fr 1fr;
     gap: 4rem 3rem;

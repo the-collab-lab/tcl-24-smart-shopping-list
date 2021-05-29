@@ -194,7 +194,7 @@ const List = () => {
   };
 
   return (
-    <ListContainer isLoading={loading}>
+    <ListContainer>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
 
