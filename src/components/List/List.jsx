@@ -86,7 +86,6 @@ const List = () => {
       const currentDate = new Date();
       const itemDate = new Date(date.toDate());
       itemDate.setDate(itemDate.getDate() + 1);
-      // itemDate.setMinutes(itemDate.getMinutes() + 2); // In case you wanna test it
 
       return !(currentDate >= itemDate);
     }
@@ -296,8 +295,6 @@ const List = () => {
                         </>
                       )}
                     </div>
-                    {/* in case you wanna test it */}
-                    {/* {doc.data().lastEstimate} */}
                   </ItemContainer>
                 </li>
               )),

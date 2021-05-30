@@ -8,12 +8,13 @@ import Home from './components/Home/Home';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import { GlobalStyle } from '../src/components/Style/Global.Style';
+import { AppContainer } from './App.style';
 
 function App() {
   return (
     <Router>
       <GlobalStyle />
-      <div className="App">
+      <AppContainer>
         <Switch>
           <ProtectedRoute path="/list">
             <List />
@@ -26,7 +27,7 @@ function App() {
           </Route>
         </Switch>
         <NavBar />
-      </div>
+      </AppContainer>
     </Router>
   );
 }

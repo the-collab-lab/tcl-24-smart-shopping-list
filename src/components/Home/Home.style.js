@@ -4,7 +4,7 @@ import { colorPalet } from '../Style/Color.palette.js';
 import { Button } from '../Style/Button.Style.js';
 import { Input } from '../Style/Input.Style.js';
 
-const { primary, secundary, bgApp, active, dark, bg } = colorPalet;
+const { secundary, bgApp, active, dark } = colorPalet;
 
 export const HomeContainer = styled.section`
   display: flex;
@@ -39,9 +39,6 @@ export const TopSection = styled.div`
     width: 100%;
     height: 10%;
     color: ${dark};
-    /* font-family: 'Bad Script', cursive; */
-    /* font-family: 'Libre Baskerville', serif; */
-    /* font-family: 'Fredoka One', cursive; */
     font-family: 'Josefin Sans', sans-serif;
   }
   img.TopSection-image {

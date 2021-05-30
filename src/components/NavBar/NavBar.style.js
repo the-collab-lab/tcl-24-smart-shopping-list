@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colorPalet } from '../Style/Color.palette.js';
 
-const { primary, secundary, bgApp, active, dark, bg } = colorPalet;
+const { bgApp, active, dark } = colorPalet;
 
 export const NavBarContainer = styled.nav`
   display: flex;

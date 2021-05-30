@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { Form } from '../Form/Form';
 
 const AddItem = () => {
   return (
-    <Fragment>
+    <>
       <Form />
-    </Fragment>
+    </>
   );
 };
 
