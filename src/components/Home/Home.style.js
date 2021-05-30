@@ -21,7 +21,6 @@ export const HomeContainer = styled.section`
     min-width: 420px;
     margin: auto;
     border-radius: 2rem;
-    /* height: 80vh; */
     height: 90vh;
     box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
   }

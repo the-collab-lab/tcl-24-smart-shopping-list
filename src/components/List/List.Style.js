@@ -16,8 +16,6 @@ export const ListContainer = styled.section`
   min-width: 30rem;
   width: 100%;
   background: ${bgApp};
-  /* max-height: 85vh; */
-  /* height: 100%; */
   @media only screen and ${device.sm} {
     width: 40rem;
     min-width: 40rem;
@@ -89,9 +87,6 @@ export const ItemContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
   min-height: 16rem;
-  /* min-width: 27rem; */
-  /* margin-bottom: 2rem;
-  margin-right: 2rem; */
   @media only screen and ${device.lg} {
     min-height: 20rem;
   }
@@ -128,8 +123,6 @@ export const UnorderedList = styled.ul`
   grid-template-rows: 1fr;
   gap: 2.5rem 2rem;
   margin-top: 2rem;
-  /* height: 80vh; */
-  /* overflow: scroll; */
   @media only screen and ${device.md} {
     grid-template-columns: 1fr 1fr;
     gap: 4rem 3rem;
