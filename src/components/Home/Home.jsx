@@ -75,7 +75,9 @@ const Home = () => {
 
         <p className="TopSection-label">Get started by creating a new list.</p>
 
-        <ButtonHome onClick={handleClick}>New list</ButtonHome>
+        <ButtonHome onClick={handleClick} data-testid="addList">
+          New list
+        </ButtonHome>
       </TopSection>
 
       <BottonSection>
@@ -86,6 +88,7 @@ const Home = () => {
             </p>
             {
               <InputHome
+                data-testid="input"
                 type="text"
                 name="token"
                 onChange={handleInputChange}
