@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { device } from '../Style/Breakpoints';
 import { Input } from '../Style/Input.Style';
 import { Button } from '../Style/Button.Style';
+import { colorPalet } from '../Style/Color.palette';
+
+const { bgApp, dark, primary } = colorPalet;
 
 export const ListContainer = styled.section`
   display: flex;
@@ -9,11 +12,12 @@ export const ListContainer = styled.section`
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 3rem 0;
+  padding: 3rem;
   min-width: 30rem;
   width: 100%;
-  background: #f2fbe0;
-  max-height: 85vh;
+  background: ${bgApp};
+  /* max-height: 85vh; */
+  /* height: 100%; */
   @media only screen and ${device.sm} {
     width: 40rem;
     min-width: 40rem;
@@ -22,7 +26,7 @@ export const ListContainer = styled.section`
     box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.2);
   }
   @media only screen and ${device.md} {
-    padding: 3rem;
+    padding: 3rem auto;
     width: 70rem;
     min-width: 60rem;
   }
@@ -36,7 +40,7 @@ export const NewInput = styled(Input)`
   height: 3.2rem;
   font-size: 1.4rem;
   background-color: #f8fdef;
-  border: 0.1rem solid #605b56;
+  border: 0.1rem solid ${dark};
   padding: 0 1rem;
   margin-bottom: 1.5rem;
 `;
@@ -72,12 +76,12 @@ export const ItemContainer = styled.div`
     props.purchase === 'Soon'
       ? '#dd6450'
       : props.purchase === 'Kind of Soon'
-      ? '#acc18a'
+      ? primary
       : props.purchase === 'Not Soon'
       ? '#b8a46e'
       : props.purchase === 'Inactive'
       ? '#B8B8B8'
-      : '#acc18a'};
+      : primary};
   border-radius: 0.7rem;
   padding: 1.5rem;
   display: flex;
@@ -85,6 +89,9 @@ export const ItemContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
   min-height: 16rem;
+  /* min-width: 27rem; */
+  /* margin-bottom: 2rem;
+  margin-right: 2rem; */
   @media only screen and ${device.lg} {
     min-height: 20rem;
   }
@@ -100,9 +107,9 @@ export const ItemName = styled.span`
 export const DeleteButton = styled.button`
   background: none;
   border: none;
-  background-color: #f2fbe0;
+  background-color: ${bgApp};
   border-radius: 4px;
-  color: #605b56;
+  color: ${dark};
   cursor: pointer;
   padding: 7px;
 `;
@@ -122,7 +129,7 @@ export const UnorderedList = styled.ul`
   gap: 2.5rem 2rem;
   margin-top: 2rem;
   /* height: 80vh; */
-  overflow: scroll;
+  /* overflow: scroll; */
   @media only screen and ${device.md} {
     grid-template-columns: 1fr 1fr;
     gap: 4rem 3rem;
@@ -158,7 +165,7 @@ export const NewButton = styled(Button)`
   padding: 0 0.3rem;
   i {
     font-size: 1.8rem;
-    color: #605b56;
+    color: ${dark};
   }
   &:hover {
     background: none;
@@ -188,11 +195,11 @@ export const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${(props) => (props.checked ? '#605B56' : 'papayawhip')};
+  background: ${(props) => (props.checked ? dark : 'papayawhip')};
   border-radius: 3px;
   transition: all 150ms;
   ${HiddenCheckbox}:focus + & {
-    box-shadow: 0 0 0 3px pink;
+    box-shadow: 0 0 0 3px ${dark};
   }
   ${Icon} {
     visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};

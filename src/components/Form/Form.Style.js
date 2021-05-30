@@ -11,7 +11,8 @@ export const FormWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
+  height: 90vh;
 `;
 
 export const FormStyled = styled.form`
