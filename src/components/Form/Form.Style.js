@@ -11,7 +11,6 @@ export const FormWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
   height: 90vh;
 `;
 
@@ -19,7 +18,7 @@ export const FormStyled = styled.form`
   display: flex;
   flex-direction: column;
   min-width: 375px;
-  height: 80%;
+  height: 85%;
   margin: auto;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 2rem;
@@ -28,7 +27,7 @@ export const FormStyled = styled.form`
 
   @media ${device.sm} {
     width: 420px;
-    height: 75%;
+    height: 80%;
     min-width: 420px;
     max-height: 600px;
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
