@@ -1,10 +1,11 @@
-import styled from 'styled-components';
-
 import { colorPalet } from '../Style/Color.palette.js';
 import { Button } from '../Style/Button.Style.js';
 import { Input } from '../Style/Input.Style.js';
+import styled from 'styled-components';
+import { device } from '../Style/Breakpoints.js';
 
 const { secundary, bgApp, active, dark } = colorPalet;
+const { sm } = device;
 
 export const HomeContainer = styled.section`
   display: flex;
@@ -15,7 +16,7 @@ export const HomeContainer = styled.section`
   width: 100%;
   height: 90vh;
   background: ${bgApp};
-  @media (min-width: 480px) {
+  @media ${sm} {
     width: 420px;
     min-width: 420px;
     margin: auto;
@@ -64,7 +65,7 @@ export const BottonSection = styled.div`
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.2);
-  @media (min-width: 480px) {
+  @media ${sm} {
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
   }

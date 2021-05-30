@@ -1,7 +1,9 @@
-import styled from 'styled-components';
 import { colorPalet } from '../Style/Color.palette.js';
+import { device } from '../Style/Breakpoints.js';
+import styled from 'styled-components';
 
 const { bgApp, active, dark } = colorPalet;
+const { sm } = device;
 
 export const NavBarContainer = styled.nav`
   display: flex;
@@ -43,7 +45,7 @@ export const NavBarContainer = styled.nav`
     }
   }
 
-  @media (min-width: 480px) {
+  @media ${sm} {
     width: 420px;
     height: 10vh;
     position: relative;
