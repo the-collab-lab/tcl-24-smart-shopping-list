@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 import AddItem from './components/AddItem/AddItem.jsx';
 import List from './components/List/List.jsx';
@@ -28,6 +29,7 @@ function App() {
         </Switch>
         <NavBar />
       </AppContainer>
+      <ArchivalNoticeModal />
     </Router>
   );
 }

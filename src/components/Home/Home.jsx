@@ -1,8 +1,9 @@
 import { useHistory } from 'react-router-dom';
-import getToken from '../../lib/tokens';
+// import getToken from '../../lib/tokens';
 import { useForm } from '../../hooks/useForm';
 import { useFirebase } from '../../hooks/useFirebase.js';
 import useNotification from '../../hooks/useNotification';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 import {
   HomeContainer,
@@ -53,9 +54,10 @@ const Home = () => {
   }
 
   const handleClick = () => {
-    const token = getToken();
-    localStorage.setItem('token', token);
-    history.push('/list');
+    console.log('Creating new lists is disabled');
+    // const token = getToken();
+    // localStorage.setItem('token', token);
+    // history.push('/list');
   };
 
   const handleSubmit = (e) => {
@@ -109,6 +111,7 @@ const Home = () => {
           {load && <div className="progress-3"></div>}
         </Notification>
       </BottonSection>
+      <ArchivalNoticeModal />
     </HomeContainer>
   );
 };
